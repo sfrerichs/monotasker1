@@ -1,0 +1,31 @@
+{
+    "name": "ThingsList",
+    "fields": [
+        {
+            "fieldName": "listTime",
+            "fieldType": "Time",
+            "fieldValues": "MORNING,AFTERNOON,EVENING"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityName": "thing",
+            "otherEntityRelationshipName": "thingsList",
+            "relationshipName": "thing",
+            "otherEntityField": "id",
+            "ownerSide": false
+        }
+    ],
+    "changelogDate": "20200313040900",
+    "entityTableName": "things_list",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "embedded": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}
