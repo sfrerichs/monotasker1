@@ -15,7 +15,7 @@ export const Home = (props: IHomeProp) => {
 
   return (
     <Row>
-      <Col md="9">
+      <Col md="6">
         <h2>Welcome, Sarah!</h2>
         <p className="lead">Coming Soon: One Thing App</p>
         {account && account.login ? (
@@ -45,10 +45,11 @@ export const Home = (props: IHomeProp) => {
         )}
 
       </Col>
-      <Col md="3" className="pad">
+      <Col md="6" className="pad">
         <span className="hipster rounded" />
       </Col>
     </Row>
+
   );
 };
 
