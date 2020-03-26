@@ -1,15 +1,15 @@
 # monotasker
 
-##About
+## About
 This is a project to create a task list that will only show one task at a time. It is created for people who feel overwhelmed by a long to-do list, which can lead to a lack of productivity. It will help them focus on one task at a time, so they can do the things they need to do.
 
-##Features
+## Features
 
 - "One Thing" window: this shows the one thing that the user is doing right now
 - "All the Things" window: this shows the full task list, and allow the user to edit the list.
 - "Time Buckets": In the "All the Things" window, tasks can be sorted into "time buckets", that is, a group of tasks to be done in the morning, and another group to be done in the afternoon.
 
-######This application was generated using JHipster 6.8.0, you can find documentation and help at [https://www.jhipster.tech/documentation-archive/v6.8.0](https://www.jhipster.tech/documentation-archive/v6.8.0).
+###### This application was generated using JHipster 6.8.0, you can find documentation and help at [https://www.jhipster.tech/documentation-archive/v6.8.0](https://www.jhipster.tech/documentation-archive/v6.8.0).
 
 ## Development
 
