@@ -14,7 +14,7 @@ export const Home = (props: IHomeProp) => {
   const { account } = props;
 
 function moreInfo() {
-  document.getElementById("infoBox").removeAttribute("hidden");
+  document.getElementById("infoButton").outerHTML = '<p class="text-info">Sort your to-do list by time of day, then work through each group one thing at a time.</p>';
 }
 
   return (
@@ -25,17 +25,13 @@ function moreInfo() {
           <p className="lead">Helps you get things done by focusing on one thing at a time!</p>
           <hr className="my-4" />
 
-          <span hidden id="infoBox">
-            <div className="alert alert-dismissible alert-info">
-              <strong>Heads up!</strong> This alert needs your attention, but its not super important.
-            </div>
-          </span>
-
+          <div id="infoButton">
             <p className="lead">
-                <a className="btn btn-info btn-lg"
+                <a className="btn btn-info"
                 onClick={()=>moreInfo()}
                 role="button">Learn more</a>
             </p>
+          </div>
 
         </div>
       </Col>
