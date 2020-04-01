@@ -33,7 +33,7 @@ export const ThingsList = (props: IThingsListProps) => {
             <thead>
               <tr>
                 <th>ID</th>
-                <th>List Time</th>
+                <th>Time of Day</th>
                 <th />
               </tr>
             </thead>

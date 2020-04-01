@@ -24,7 +24,8 @@ const initialState = {
   redirectMessage: null as string,
   sessionHasBeenFetched: false,
   idToken: null as string,
-  logoutUrl: null as string
+  logoutUrl: null as string,
+  infoClicked: false
 };
 
 export type AuthenticationState = Readonly<typeof initialState>;

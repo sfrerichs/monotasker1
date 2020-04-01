@@ -13,40 +13,53 @@ export type IHomeProp = StateProps;
 export const Home = (props: IHomeProp) => {
   const { account } = props;
 
+function moreInfo() {
+  document.getElementById("infoButton").outerHTML = '<p class="text-info">Sort your to-do list by time of day, then work through each group one thing at a time.</p>';
+}
+
   return (
     <Row>
-      <Col md="9">
-        <h2>Welcome, Sarah!</h2>
-        <p className="lead">Coming Soon: One Thing App</p>
+      <Col md="6">
+        <div className="container p-3 my-3 bg-dark">
+          <h1 className="display-3">One Thing at a Time App</h1>
+          <p className="lead">Helps you get things done by focusing on one thing at a time!</p>
+          <hr className="my-4" />
+
+          <div id="infoButton">
+            <p className="lead">
+                <a className="btn btn-info"
+                onClick={()=>moreInfo()}
+                role="button">Learn more</a>
+            </p>
+          </div>
+
+        </div>
+      </Col>
+
+      <Col md="6">
         {account && account.login ? (
-          <div>
-            <Alert color="success">You are logged in as user {account.login}.</Alert>
+          <div className="container p-3 my-3 bg-default">
+            <Alert color="success">You are logged in as {account.login}.</Alert>
           </div>
         ) : (
-          <div>
+          <div className="container p-3 my-3 bg-default">
             <Alert color="warning">
-              If you want to
               <Link to="/login" className="alert-link">
                 {' '}
-                sign in
+                Sign in here
               </Link>
-              , you can try the default accounts:
-              <br />- Administrator (login=&quot;admin&quot; and password=&quot;admin&quot;)
-              <br />- User (login=&quot;user&quot; and password=&quot;user&quot;).
-            </Alert>
-
-            <Alert color="warning">
-              You do not have an account yet?&nbsp;
+              <p />
               <Link to="/account/register" className="alert-link">
                 Register a new account
               </Link>
+              <p />
+              <div>For development try these:
+              <br />- Administrator (login=&quot;admin&quot; and password=&quot;admin&quot;)
+              <br />- User (login=&quot;user&quot; and password=&quot;user&quot;).
+              </div>
             </Alert>
           </div>
         )}
-
-      </Col>
-      <Col md="3" className="pad">
-        <span className="hipster rounded" />
       </Col>
     </Row>
   );
