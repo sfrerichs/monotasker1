@@ -7,8 +7,8 @@ import { ICrudGetAction, ICrudGetAllAction, ICrudPutAction } from 'react-jhipste
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 
-import { IThing } from 'app/shared/model/thing.model';
-import { getEntities as getThings } from 'app/entities/thing/thing.reducer';
+import { IOneThingList } from 'app/shared/model/one-thing-list.model';
+import { getEntities as getOneThingLists } from 'app/entities/one-thing-list/one-thing-list.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './things-list.reducer';
 import { IThingsList } from 'app/shared/model/things-list.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
@@ -17,23 +17,21 @@ import { mapIdList } from 'app/shared/util/entity-utils';
 export interface IThingsListUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
 export const ThingsListUpdate = (props: IThingsListUpdateProps) => {
-  const [thingId, setThingId] = useState('0');
+  const [oneThingListId, setOneThingListId] = useState('0');
   const [isNew, setIsNew] = useState(!props.match.params || !props.match.params.id);
 
-  const { thingsListEntity, things, loading, updating } = props;
+  const { thingsListEntity, oneThingLists, loading, updating } = props;
 
   const handleClose = () => {
     props.history.push('/things-list');
   };
 
   useEffect(() => {
-    if (isNew) {
-      props.reset();
-    } else {
+    if (!isNew) {
       props.getEntity(props.match.params.id);
     }
 
-    props.getThings();
+    props.getOneThingLists();
   }, []);
 
   useEffect(() => {
@@ -77,6 +75,12 @@ export const ThingsListUpdate = (props: IThingsListUpdateProps) => {
                 </AvGroup>
               ) : null}
               <AvGroup>
+                <Label id="dateLabel" for="things-list-date">
+                  Date
+                </Label>
+                <AvField id="things-list-date" type="date" className="form-control" name="date" />
+              </AvGroup>
+              <AvGroup>
                 <Label id="listTimeLabel" for="things-list-listTime">
                   List Time
                 </Label>
@@ -90,6 +94,25 @@ export const ThingsListUpdate = (props: IThingsListUpdateProps) => {
                   <option value="MORNING">MORNING</option>
                   <option value="AFTERNOON">AFTERNOON</option>
                   <option value="EVENING">EVENING</option>
+                </AvInput>
+              </AvGroup>
+              <AvGroup>
+                <Label id="descriptionLabel" for="things-list-description">
+                  Description
+                </Label>
+                <AvField id="things-list-description" type="text" name="description" />
+              </AvGroup>
+              <AvGroup>
+                <Label for="things-list-oneThingList">One Thing List</Label>
+                <AvInput id="things-list-oneThingList" type="select" className="form-control" name="oneThingList.id">
+                  <option value="" key="0" />
+                  {oneThingLists
+                    ? oneThingLists.map(otherEntity => (
+                        <option value={otherEntity.id} key={otherEntity.id}>
+                          {otherEntity.id}
+                        </option>
+                      ))
+                    : null}
                 </AvInput>
               </AvGroup>
               <Button tag={Link} id="cancel-save" to="/things-list" replace color="info">
@@ -111,7 +134,7 @@ export const ThingsListUpdate = (props: IThingsListUpdateProps) => {
 };
 
 const mapStateToProps = (storeState: IRootState) => ({
-  things: storeState.thing.entities,
+  oneThingLists: storeState.oneThingList.entities,
   thingsListEntity: storeState.thingsList.entity,
   loading: storeState.thingsList.loading,
   updating: storeState.thingsList.updating,
@@ -119,7 +142,7 @@ const mapStateToProps = (storeState: IRootState) => ({
 });
 
 const mapDispatchToProps = {
-  getThings,
+  getOneThingLists,
   getEntity,
   updateEntity,
   createEntity,

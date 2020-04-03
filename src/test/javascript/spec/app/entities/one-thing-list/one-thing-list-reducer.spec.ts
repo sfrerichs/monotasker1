@@ -4,7 +4,6 @@ import configureStore from 'redux-mock-store';
 import promiseMiddleware from 'redux-promise-middleware';
 import thunk from 'redux-thunk';
 import sinon from 'sinon';
-import { parseHeaderForLinks } from 'react-jhipster';
 
 import reducer, {
   ACTION_TYPES,
@@ -14,9 +13,9 @@ import reducer, {
   getEntity,
   updateEntity,
   reset
-} from 'app/entities/things-list/things-list.reducer';
+} from 'app/entities/one-thing-list/one-thing-list.reducer';
 import { REQUEST, SUCCESS, FAILURE } from 'app/shared/reducers/action-type.util';
-import { IThingsList, defaultValue } from 'app/shared/model/things-list.model';
+import { IOneThingList, defaultValue } from 'app/shared/model/one-thing-list.model';
 
 describe('Entities reducer tests', () => {
   function isEmpty(element): boolean {
@@ -30,11 +29,8 @@ describe('Entities reducer tests', () => {
   const initialState = {
     loading: false,
     errorMessage: null,
-    entities: [] as ReadonlyArray<IThingsList>,
+    entities: [] as ReadonlyArray<IOneThingList>,
     entity: defaultValue,
-    links: {
-      next: 0
-    },
     totalItems: 0,
     updating: false,
     updateSuccess: false
@@ -65,7 +61,7 @@ describe('Entities reducer tests', () => {
 
   describe('Requests', () => {
     it('should set state to loading', () => {
-      testMultipleTypes([REQUEST(ACTION_TYPES.FETCH_THINGSLIST_LIST), REQUEST(ACTION_TYPES.FETCH_THINGSLIST)], {}, state => {
+      testMultipleTypes([REQUEST(ACTION_TYPES.FETCH_ONETHINGLIST_LIST), REQUEST(ACTION_TYPES.FETCH_ONETHINGLIST)], {}, state => {
         expect(state).toMatchObject({
           errorMessage: null,
           updateSuccess: false,
@@ -76,7 +72,7 @@ describe('Entities reducer tests', () => {
 
     it('should set state to updating', () => {
       testMultipleTypes(
-        [REQUEST(ACTION_TYPES.CREATE_THINGSLIST), REQUEST(ACTION_TYPES.UPDATE_THINGSLIST), REQUEST(ACTION_TYPES.DELETE_THINGSLIST)],
+        [REQUEST(ACTION_TYPES.CREATE_ONETHINGLIST), REQUEST(ACTION_TYPES.UPDATE_ONETHINGLIST), REQUEST(ACTION_TYPES.DELETE_ONETHINGLIST)],
         {},
         state => {
           expect(state).toMatchObject({
@@ -106,11 +102,11 @@ describe('Entities reducer tests', () => {
     it('should set a message in errorMessage', () => {
       testMultipleTypes(
         [
-          FAILURE(ACTION_TYPES.FETCH_THINGSLIST_LIST),
-          FAILURE(ACTION_TYPES.FETCH_THINGSLIST),
-          FAILURE(ACTION_TYPES.CREATE_THINGSLIST),
-          FAILURE(ACTION_TYPES.UPDATE_THINGSLIST),
-          FAILURE(ACTION_TYPES.DELETE_THINGSLIST)
+          FAILURE(ACTION_TYPES.FETCH_ONETHINGLIST_LIST),
+          FAILURE(ACTION_TYPES.FETCH_ONETHINGLIST),
+          FAILURE(ACTION_TYPES.CREATE_ONETHINGLIST),
+          FAILURE(ACTION_TYPES.UPDATE_ONETHINGLIST),
+          FAILURE(ACTION_TYPES.DELETE_ONETHINGLIST)
         ],
         'error message',
         state => {
@@ -126,16 +122,14 @@ describe('Entities reducer tests', () => {
 
   describe('Successes', () => {
     it('should fetch all entities', () => {
-      const payload = { data: [{ 1: 'fake1' }, { 2: 'fake2' }], headers: { 'x-total-count': 123, link: ';' } };
-      const links = parseHeaderForLinks(payload.headers.link);
+      const payload = { data: [{ 1: 'fake1' }, { 2: 'fake2' }], headers: { 'x-total-count': 123 } };
       expect(
         reducer(undefined, {
-          type: SUCCESS(ACTION_TYPES.FETCH_THINGSLIST_LIST),
+          type: SUCCESS(ACTION_TYPES.FETCH_ONETHINGLIST_LIST),
           payload
         })
       ).toEqual({
         ...initialState,
-        links,
         loading: false,
         totalItems: payload.headers['x-total-count'],
         entities: payload.data
@@ -146,7 +140,7 @@ describe('Entities reducer tests', () => {
       const payload = { data: { 1: 'fake1' } };
       expect(
         reducer(undefined, {
-          type: SUCCESS(ACTION_TYPES.FETCH_THINGSLIST),
+          type: SUCCESS(ACTION_TYPES.FETCH_ONETHINGLIST),
           payload
         })
       ).toEqual({
@@ -160,7 +154,7 @@ describe('Entities reducer tests', () => {
       const payload = { data: 'fake payload' };
       expect(
         reducer(undefined, {
-          type: SUCCESS(ACTION_TYPES.CREATE_THINGSLIST),
+          type: SUCCESS(ACTION_TYPES.CREATE_ONETHINGLIST),
           payload
         })
       ).toEqual({
@@ -174,7 +168,7 @@ describe('Entities reducer tests', () => {
     it('should delete entity', () => {
       const payload = 'fake payload';
       const toTest = reducer(undefined, {
-        type: SUCCESS(ACTION_TYPES.DELETE_THINGSLIST),
+        type: SUCCESS(ACTION_TYPES.DELETE_ONETHINGLIST),
         payload
       });
       expect(toTest).toMatchObject({
@@ -197,65 +191,72 @@ describe('Entities reducer tests', () => {
       axios.delete = sinon.stub().returns(Promise.resolve(resolvedObject));
     });
 
-    it('dispatches ACTION_TYPES.FETCH_THINGSLIST_LIST actions', async () => {
+    it('dispatches ACTION_TYPES.FETCH_ONETHINGLIST_LIST actions', async () => {
       const expectedActions = [
         {
-          type: REQUEST(ACTION_TYPES.FETCH_THINGSLIST_LIST)
+          type: REQUEST(ACTION_TYPES.FETCH_ONETHINGLIST_LIST)
         },
         {
-          type: SUCCESS(ACTION_TYPES.FETCH_THINGSLIST_LIST),
+          type: SUCCESS(ACTION_TYPES.FETCH_ONETHINGLIST_LIST),
           payload: resolvedObject
         }
       ];
       await store.dispatch(getEntities()).then(() => expect(store.getActions()).toEqual(expectedActions));
     });
 
-    it('dispatches ACTION_TYPES.FETCH_THINGSLIST actions', async () => {
+    it('dispatches ACTION_TYPES.FETCH_ONETHINGLIST actions', async () => {
       const expectedActions = [
         {
-          type: REQUEST(ACTION_TYPES.FETCH_THINGSLIST)
+          type: REQUEST(ACTION_TYPES.FETCH_ONETHINGLIST)
         },
         {
-          type: SUCCESS(ACTION_TYPES.FETCH_THINGSLIST),
+          type: SUCCESS(ACTION_TYPES.FETCH_ONETHINGLIST),
           payload: resolvedObject
         }
       ];
       await store.dispatch(getEntity(42666)).then(() => expect(store.getActions()).toEqual(expectedActions));
     });
 
-    it('dispatches ACTION_TYPES.CREATE_THINGSLIST actions', async () => {
+    it('dispatches ACTION_TYPES.CREATE_ONETHINGLIST actions', async () => {
       const expectedActions = [
         {
-          type: REQUEST(ACTION_TYPES.CREATE_THINGSLIST)
+          type: REQUEST(ACTION_TYPES.CREATE_ONETHINGLIST)
         },
         {
-          type: SUCCESS(ACTION_TYPES.CREATE_THINGSLIST),
+          type: SUCCESS(ACTION_TYPES.CREATE_ONETHINGLIST),
+          payload: resolvedObject
+        },
+        {
+          type: REQUEST(ACTION_TYPES.FETCH_ONETHINGLIST_LIST)
+        },
+        {
+          type: SUCCESS(ACTION_TYPES.FETCH_ONETHINGLIST_LIST),
           payload: resolvedObject
         }
       ];
       await store.dispatch(createEntity({ id: 1 })).then(() => expect(store.getActions()).toEqual(expectedActions));
     });
 
-    it('dispatches ACTION_TYPES.UPDATE_THINGSLIST actions', async () => {
+    it('dispatches ACTION_TYPES.UPDATE_ONETHINGLIST actions', async () => {
       const expectedActions = [
         {
-          type: REQUEST(ACTION_TYPES.UPDATE_THINGSLIST)
+          type: REQUEST(ACTION_TYPES.UPDATE_ONETHINGLIST)
         },
         {
-          type: SUCCESS(ACTION_TYPES.UPDATE_THINGSLIST),
+          type: SUCCESS(ACTION_TYPES.UPDATE_ONETHINGLIST),
           payload: resolvedObject
         }
       ];
       await store.dispatch(updateEntity({ id: 1 })).then(() => expect(store.getActions()).toEqual(expectedActions));
     });
 
-    it('dispatches ACTION_TYPES.DELETE_THINGSLIST actions', async () => {
+    it('dispatches ACTION_TYPES.DELETE_ONETHINGLIST actions', async () => {
       const expectedActions = [
         {
-          type: REQUEST(ACTION_TYPES.DELETE_THINGSLIST)
+          type: REQUEST(ACTION_TYPES.DELETE_ONETHINGLIST)
         },
         {
-          type: SUCCESS(ACTION_TYPES.DELETE_THINGSLIST),
+          type: SUCCESS(ACTION_TYPES.DELETE_ONETHINGLIST),
           payload: resolvedObject
         }
       ];

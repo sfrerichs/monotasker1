@@ -2,25 +2,39 @@
     "name": "ThingsList",
     "fields": [
         {
+            "fieldName": "date",
+            "fieldType": "LocalDate"
+        },
+        {
             "fieldName": "listTime",
             "fieldType": "Time",
             "fieldValues": "MORNING,AFTERNOON,EVENING"
+        },
+        {
+            "fieldName": "description",
+            "fieldType": "String"
         }
     ],
     "relationships": [
         {
-            "relationshipType": "many-to-many",
+            "relationshipType": "one-to-one",
+            "otherEntityName": "oneThingList",
+            "otherEntityRelationshipName": "thingsList",
+            "relationshipName": "oneThingList",
+            "otherEntityField": "id",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "one-to-many",
             "otherEntityName": "thing",
             "otherEntityRelationshipName": "thingsList",
-            "relationshipName": "thing",
-            "otherEntityField": "id",
-            "ownerSide": false
+            "relationshipName": "thing"
         }
     ],
     "changelogDate": "20200313040900",
     "entityTableName": "things_list",
     "dto": "no",
-    "pagination": "no",
+    "pagination": "infinite-scroll",
     "service": "no",
     "jpaMetamodelFiltering": false,
     "fluentMethods": true,

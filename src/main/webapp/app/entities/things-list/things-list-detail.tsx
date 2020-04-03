@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Row, Col } from 'reactstrap';
-import { ICrudGetAction } from 'react-jhipster';
+import { ICrudGetAction, TextFormat } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
@@ -26,9 +26,21 @@ export const ThingsListDetail = (props: IThingsListDetailProps) => {
         </h2>
         <dl className="jh-entity-details">
           <dt>
+            <span id="date">Date</span>
+          </dt>
+          <dd>
+            <TextFormat value={thingsListEntity.date} type="date" format={APP_LOCAL_DATE_FORMAT} />
+          </dd>
+          <dt>
             <span id="listTime">List Time</span>
           </dt>
           <dd>{thingsListEntity.listTime}</dd>
+          <dt>
+            <span id="description">Description</span>
+          </dt>
+          <dd>{thingsListEntity.description}</dd>
+          <dt>One Thing List</dt>
+          <dd>{thingsListEntity.oneThingList ? thingsListEntity.oneThingList.id : ''}</dd>
         </dl>
         <Button tag={Link} to="/things-list" replace color="info">
           <FontAwesomeIcon icon="arrow-left" /> <span className="d-none d-md-inline">Back</span>

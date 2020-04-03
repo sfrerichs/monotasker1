@@ -14,6 +14,8 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -31,8 +33,14 @@ import sfrerichs.domain.enumeration.Time;
 @WithMockUser
 public class ThingsListResourceIT {
 
+    private static final LocalDate DEFAULT_DATE = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_DATE = LocalDate.now(ZoneId.systemDefault());
+
     private static final Time DEFAULT_LIST_TIME = Time.MORNING;
     private static final Time UPDATED_LIST_TIME = Time.AFTERNOON;
+
+    private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAA";
+    private static final String UPDATED_DESCRIPTION = "BBBBBBBBBB";
 
     @Autowired
     private ThingsListRepository thingsListRepository;
@@ -53,7 +61,9 @@ public class ThingsListResourceIT {
      */
     public static ThingsList createEntity(EntityManager em) {
         ThingsList thingsList = new ThingsList()
-            .listTime(DEFAULT_LIST_TIME);
+            .date(DEFAULT_DATE)
+            .listTime(DEFAULT_LIST_TIME)
+            .description(DEFAULT_DESCRIPTION);
         return thingsList;
     }
     /**
@@ -64,7 +74,9 @@ public class ThingsListResourceIT {
      */
     public static ThingsList createUpdatedEntity(EntityManager em) {
         ThingsList thingsList = new ThingsList()
-            .listTime(UPDATED_LIST_TIME);
+            .date(UPDATED_DATE)
+            .listTime(UPDATED_LIST_TIME)
+            .description(UPDATED_DESCRIPTION);
         return thingsList;
     }
 
@@ -88,7 +100,9 @@ public class ThingsListResourceIT {
         List<ThingsList> thingsListList = thingsListRepository.findAll();
         assertThat(thingsListList).hasSize(databaseSizeBeforeCreate + 1);
         ThingsList testThingsList = thingsListList.get(thingsListList.size() - 1);
+        assertThat(testThingsList.getDate()).isEqualTo(DEFAULT_DATE);
         assertThat(testThingsList.getListTime()).isEqualTo(DEFAULT_LIST_TIME);
+        assertThat(testThingsList.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
     }
 
     @Test
@@ -122,7 +136,9 @@ public class ThingsListResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(thingsList.getId().intValue())))
-            .andExpect(jsonPath("$.[*].listTime").value(hasItem(DEFAULT_LIST_TIME.toString())));
+            .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE.toString())))
+            .andExpect(jsonPath("$.[*].listTime").value(hasItem(DEFAULT_LIST_TIME.toString())))
+            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)));
     }
     
     @Test
@@ -136,7 +152,9 @@ public class ThingsListResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(thingsList.getId().intValue()))
-            .andExpect(jsonPath("$.listTime").value(DEFAULT_LIST_TIME.toString()));
+            .andExpect(jsonPath("$.date").value(DEFAULT_DATE.toString()))
+            .andExpect(jsonPath("$.listTime").value(DEFAULT_LIST_TIME.toString()))
+            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION));
     }
 
     @Test
@@ -160,7 +178,9 @@ public class ThingsListResourceIT {
         // Disconnect from session so that the updates on updatedThingsList are not directly saved in db
         em.detach(updatedThingsList);
         updatedThingsList
-            .listTime(UPDATED_LIST_TIME);
+            .date(UPDATED_DATE)
+            .listTime(UPDATED_LIST_TIME)
+            .description(UPDATED_DESCRIPTION);
 
         restThingsListMockMvc.perform(put("/api/things-lists")
             .contentType(MediaType.APPLICATION_JSON)
@@ -171,7 +191,9 @@ public class ThingsListResourceIT {
         List<ThingsList> thingsListList = thingsListRepository.findAll();
         assertThat(thingsListList).hasSize(databaseSizeBeforeUpdate);
         ThingsList testThingsList = thingsListList.get(thingsListList.size() - 1);
+        assertThat(testThingsList.getDate()).isEqualTo(UPDATED_DATE);
         assertThat(testThingsList.getListTime()).isEqualTo(UPDATED_LIST_TIME);
+        assertThat(testThingsList.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
     }
 
     @Test

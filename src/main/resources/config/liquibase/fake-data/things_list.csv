@@ -1,11 +1,11 @@
-id;list_time
-1;AFTERNOON
-2;AFTERNOON
-3;AFTERNOON
-4;MORNING
-5;MORNING
-6;MORNING
-7;EVENING
-8;MORNING
-9;EVENING
-10;EVENING
+id;date;list_time;description
+1;2020-03-12;MORNING;Avon Kenyan Shilling
+2;2020-03-12;AFTERNOON;Investment Account Metrics
+3;2020-03-12;MORNING;Car Global withdrawal
+4;2020-03-12;AFTERNOON;USB array
+5;2020-03-12;MORNING;Ramp Pants calculating
+6;2020-03-12;AFTERNOON;Games enable
+7;2020-03-12;AFTERNOON;killer Electronics Bhutan
+8;2020-03-13;MORNING;seamless
+9;2020-03-12;MORNING;toolset
+10;2020-03-12;EVENING;homogeneous Cambridgeshire Row
