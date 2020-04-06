@@ -7,6 +7,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Objects;
 import java.util.HashSet;
 import java.util.Set;
@@ -27,13 +28,18 @@ public class ThingsList implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "date")
+    private LocalDate date;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "list_time")
     private Time listTime;
 
-    @ManyToMany(mappedBy = "thingsLists")
+    @Column(name = "description")
+    private String description;
+
+    @OneToMany(mappedBy = "thingsList")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    @JsonIgnore
     private Set<Thing> things = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
@@ -43,6 +49,19 @@ public class ThingsList implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public ThingsList date(LocalDate date) {
+        this.date = date;
+        return this;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
     public Time getListTime() {
@@ -58,6 +77,19 @@ public class ThingsList implements Serializable {
         this.listTime = listTime;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public ThingsList description(String description) {
+        this.description = description;
+        return this;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public Set<Thing> getThings() {
         return things;
     }
@@ -69,13 +101,13 @@ public class ThingsList implements Serializable {
 
     public ThingsList addThing(Thing thing) {
         this.things.add(thing);
-        thing.getThingsLists().add(this);
+        thing.setThingsList(this);
         return this;
     }
 
     public ThingsList removeThing(Thing thing) {
         this.things.remove(thing);
-        thing.getThingsLists().remove(this);
+        thing.setThingsList(null);
         return this;
     }
 
@@ -103,8 +135,11 @@ public class ThingsList implements Serializable {
     @Override
     public String toString() {
         return "ThingsList{" +
-            "id=" + getId() +
-            ", listTime='" + getListTime() + "'" +
-            "}";
+            "id=" + id +
+            ", date=" + date +
+            ", listTime=" + listTime +
+            ", description='" + description + '\'' +
+            ", things=" + things +
+            '}';
     }
 }
