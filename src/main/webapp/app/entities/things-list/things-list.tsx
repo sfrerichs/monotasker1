@@ -34,6 +34,7 @@ export const ThingsList = (props: IThingsListProps) => {
               <tr>
                 <th>ID</th>
                 <th>List Time</th>
+                <th>Description</th>
                 <th />
               </tr>
             </thead>
@@ -46,6 +47,7 @@ export const ThingsList = (props: IThingsListProps) => {
                     </Button>
                   </td>
                   <td>{thingsList.listTime}</td>
+                  <td>{thingsList.description}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${thingsList.id}`} color="info" size="sm">

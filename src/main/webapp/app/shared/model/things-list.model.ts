@@ -5,6 +5,7 @@ export interface IThingsList {
   id?: number;
   listTime?: Time;
   things?: IThing[];
+  description?: string;
 }
 
 export const defaultValue: Readonly<IThingsList> = {};
