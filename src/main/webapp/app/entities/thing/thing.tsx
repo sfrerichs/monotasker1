@@ -35,7 +35,7 @@ export const Thing = (props: IThingProps) => {
 
               <div className="col-sm-4">
                 <div className="card border-warning">
-                  <h4 className="card-header">Time</h4>
+                  <h4 className="card-header">Morning</h4>
                   <table className="table table-hover">
                     <tbody>
                       {thingList.map((thing, i) => (
@@ -54,7 +54,7 @@ export const Thing = (props: IThingProps) => {
 
               <div className="col-sm-4">
                 <div className="card border-danger">
-                  <h4 className="card-header">Time</h4>
+                  <h4 className="card-header">Afternoon</h4>
                   <table className="table table-hover">
                     {thingList.map((thing, i) => (
                       <tr key={`entity-${i}`}>
@@ -67,7 +67,7 @@ export const Thing = (props: IThingProps) => {
 
               <div className="col-sm-4">
                 <div className="card border-success">
-                  <h4 className="card-header">Time</h4>
+                  <h4 className="card-header">Evening</h4>
                   <table className="table table-hover">
                     {thingList.map((thing, i) => (
                       <tr key={`entity-${i}`}>
