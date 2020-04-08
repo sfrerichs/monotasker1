@@ -27,48 +27,52 @@ export const Thing = (props: IThingProps) => {
           &nbsp; Create new Thing
         </Link>
       </h2>
+
       <div className="table-responsive">
         {thingList && thingList.length > 0 ? (
-          <Table responsive>
-            <thead>
-              <tr>
-                <th>ID</th>
+          <div className="container-fluid">
+            <div className="row">
 
-                <th>Description</th>
+              <div className="col-sm-4">
+                <div className="card border-warning">
+                  <h4 className="card-header">Time</h4>
+                  <table className="table table-hover">
+                    {thingList.map((thing, i) => (
+                      <tr key={`entity-${i}`}>
+                        <td>{thing.description}</td>
+                       </tr>
+                    ))}
+                  </table>
+                </div>
+              </div>
 
-                <th>Things List</th>
-                <th />
-              </tr>
-            </thead>
-            <tbody>
-              {thingList.map((thing, i) => (
-                <tr key={`entity-${i}`}>
-                  <td>
-                    <Button tag={Link} to={`${match.url}/${thing.id}`} color="link" size="sm">
-                      {thing.id}
-                    </Button>
-                  </td>
+              <div className="col-sm-4">
+                <div className="card border-danger">
+                  <h4 className="card-header">Time</h4>
+                  <table className="table table-hover">
+                    {thingList.map((thing, i) => (
+                      <tr key={`entity-${i}`}>
+                        <td>{thing.description}</td>
+                       </tr>
+                    ))}
+                  </table>
+                </div>
+              </div>
 
-                  <td>{thing.description}</td>
-
-                  <td>{thing.thingsList.listTime ? <Link to={`things-list/${thing.thingsList.id}`}>{thing.thingsList.listTime}</Link> : ''}</td>
-                  <td className="text-right">
-                    <div className="btn-group flex-btn-group-container">
-                      <Button tag={Link} to={`${match.url}/${thing.id}`} color="info" size="sm">
-                        <FontAwesomeIcon icon="eye" /> <span className="d-none d-md-inline">View</span>
-                      </Button>
-                      <Button tag={Link} to={`${match.url}/${thing.id}/edit`} color="primary" size="sm">
-                        <FontAwesomeIcon icon="pencil-alt" /> <span className="d-none d-md-inline">Edit</span>
-                      </Button>
-                      <Button tag={Link} to={`${match.url}/${thing.id}/delete`} color="danger" size="sm">
-                        <FontAwesomeIcon icon="trash" /> <span className="d-none d-md-inline">Delete</span>
-                      </Button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
+              <div className="col-sm-4">
+                <div className="card border-success">
+                  <h4 className="card-header">Time</h4>
+                  <table className="table table-hover">
+                    {thingList.map((thing, i) => (
+                      <tr key={`entity-${i}`}>
+                        <td>{thing.description}</td>
+                       </tr>
+                    ))}
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
         ) : (
           !loading && <div className="alert alert-warning">No Things found</div>
         )}
