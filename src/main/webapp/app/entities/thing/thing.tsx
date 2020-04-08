@@ -37,11 +37,17 @@ export const Thing = (props: IThingProps) => {
                 <div className="card border-warning">
                   <h4 className="card-header">Time</h4>
                   <table className="table table-hover">
-                    {thingList.map((thing, i) => (
-                      <tr key={`entity-${i}`}>
-                        <td>{thing.description}</td>
-                       </tr>
-                    ))}
+                    <tbody>
+                      {thingList.map((thing, i) => (
+                        <tr key={`entity-${i}`}>
+                          <td>
+                          <Button tag={Link} to={`${match.url}/${thing.id}`} color="link" size="sm">
+                             {thing.description}
+                          </Button>
+                          </td>
+                         </tr>
+                      ))}
+                    </tbody>
                   </table>
                 </div>
               </div>
