@@ -37,6 +37,10 @@ export const ThingsListDetail = (props: IThingsListDetailProps) => {
         <Button tag={Link} to={`/things-list/${thingsListEntity.id}/edit`} replace color="primary">
           <FontAwesomeIcon icon="pencil-alt" /> <span className="d-none d-md-inline">Edit</span>
         </Button>
+        &nbsp;
+        <Button tag={Link} to={`/things-list/${thingsListEntity.id}/delete`} color="danger">
+          <FontAwesomeIcon icon="trash" /> <span className="d-none d-md-inline">Delete</span>
+        </Button>
       </Col>
     </Row>
   );
