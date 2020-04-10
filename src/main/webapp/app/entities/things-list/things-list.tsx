@@ -27,42 +27,32 @@ export const ThingsList = (props: IThingsListProps) => {
           &nbsp; Create new Things List
         </Link>
       </h2>
+
       <div className="table-responsive">
         {thingsListList && thingsListList.length > 0 ? (
-          <Table responsive>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Time of Day</th>
-                <th />
-              </tr>
-            </thead>
-            <tbody>
-              {thingsListList.map((thingsList, i) => (
-                <tr key={`entity-${i}`}>
-                  <td>
-                    <Button tag={Link} to={`${match.url}/${thingsList.id}`} color="link" size="sm">
-                      {thingsList.id}
-                    </Button>
-                  </td>
-                  <td>{thingsList.listTime}</td>
-                  <td className="text-right">
-                    <div className="btn-group flex-btn-group-container">
-                      <Button tag={Link} to={`${match.url}/${thingsList.id}`} color="info" size="sm">
-                        <FontAwesomeIcon icon="eye" /> <span className="d-none d-md-inline">View</span>
-                      </Button>
-                      <Button tag={Link} to={`${match.url}/${thingsList.id}/edit`} color="primary" size="sm">
-                        <FontAwesomeIcon icon="pencil-alt" /> <span className="d-none d-md-inline">Edit</span>
-                      </Button>
-                      <Button tag={Link} to={`${match.url}/${thingsList.id}/delete`} color="danger" size="sm">
-                        <FontAwesomeIcon icon="trash" /> <span className="d-none d-md-inline">Delete</span>
-                      </Button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
+          <div className="container-fluid">
+            <div className="row">
+
+            {thingsListList.map((thingsList, i) => (
+              <div className="card border-success" key={'entity-${i}'}>
+                <p>{thingsList.date}</p>
+                <h4 className="card-header">{thingsList.listTime}</h4>
+                <p className="text-success">{thingsList.description}</p>
+                <ul>
+                  {thingsList.things.map((thing, j) => (
+                    <li key={`entity-${j}`}>
+                       {thing.description}
+                    </li>
+                  ))}
+                </ul>
+                  <Button tag={Link} to={`${match.url}/${thingsList.id}`} color="link" size="sm">
+                    View/edit list info
+                  </Button>
+              </div>
+            ))}
+
+            </div>
+          </div>
         ) : (
           !loading && <div className="alert alert-warning">No Things Lists found</div>
         )}

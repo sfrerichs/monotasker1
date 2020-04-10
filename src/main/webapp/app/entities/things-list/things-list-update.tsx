@@ -77,6 +77,7 @@ export const ThingsListUpdate = (props: IThingsListUpdateProps) => {
                 </AvGroup>
               ) : null}
               <AvGroup>
+                <AvField type="date" name="date" label="Date" required/>
                 <Label id="listTimeLabel" for="things-list-listTime">
                   List Time
                 </Label>
@@ -91,6 +92,7 @@ export const ThingsListUpdate = (props: IThingsListUpdateProps) => {
                   <option value="AFTERNOON">AFTERNOON</option>
                   <option value="EVENING">EVENING</option>
                 </AvInput>
+                <AvField name="description" label="Description" />
               </AvGroup>
               <Button tag={Link} id="cancel-save" to="/things-list" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
