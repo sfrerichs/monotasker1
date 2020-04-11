@@ -41,7 +41,7 @@ export const ThingsList = (props: IThingsListProps) => {
                 <ul>
                   {thingsList.things.map((thing, j) => (
                     <li key={`entity-${j}`}>
-                       {thing.description}
+                       <p>{thing.description}</p>
                     </li>
                   ))}
                 </ul>
