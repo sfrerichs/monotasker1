@@ -22,7 +22,7 @@ export const ThingsList = (props: IThingsListProps) => {
     <div>
       <h2 id="things-list-heading">
         Things Lists
-        <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
+        <Link hidden to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
           <FontAwesomeIcon icon="plus" />
           &nbsp; Create new Things List
         </Link>
@@ -34,20 +34,24 @@ export const ThingsList = (props: IThingsListProps) => {
             <div className="row">
 
             {thingsListList.map((thingsList, i) => (
-              <div className="card border-success" key={'entity-${i}'}>
-                <p>{thingsList.date}</p>
-                <h4 className="card-header">{thingsList.listTime}</h4>
-                <p className="text-success">{thingsList.description}</p>
-                <ul>
-                  {thingsList.things.map((thing, j) => (
-                    <li key={`entity-${j}`}>
-                       <p>{thing.description}</p>
-                    </li>
-                  ))}
-                </ul>
-                  <Button tag={Link} to={`${match.url}/${thingsList.id}`} color="link" size="sm">
-                    View/edit list info
-                  </Button>
+              <div className="col-md-4" key={'entity-${i}'}>
+                <div className="card border-success">
+                  <p>{thingsList.date}</p>
+                  <h4 className="card-header">{thingsList.listTime}</h4>
+                  <p className="text-success">{thingsList.description}</p>
+                  <ul>
+                    {thingsList.things.map((thing, j) => (
+                      <li key={`entity-${j}`}>
+                         <Button tag={Link} to={`thing/${thing.id}/edit`}>
+                         {thing.description}
+                         </Button>
+                      </li>
+                    ))}
+                  </ul>
+                    <Button hidden tag={Link} to={`${match.url}/${thingsList.id}`} color="link" size="sm">
+                      View/edit list info
+                    </Button>
+                </div>
               </div>
             ))}
 

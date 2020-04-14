@@ -77,13 +77,13 @@ export const ThingsListUpdate = (props: IThingsListUpdateProps) => {
                 </AvGroup>
               ) : null}
               <AvGroup>
-                <AvField type="date" name="date" label="Date" required/>
+                <AvField type="date" name="date" label="Date"/>
                 <Label id="listTimeLabel" for="things-list-listTime">
                   List Time
                 </Label>
                 <AvInput
                   id="things-list-listTime"
-                  type="select"
+                  type=" "
                   className="form-control"
                   name="listTime"
                   value={(!isNew && thingsListEntity.listTime) || 'MORNING'}
