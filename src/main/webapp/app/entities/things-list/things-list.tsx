@@ -35,7 +35,7 @@ export const ThingsList = (props: IThingsListProps) => {
 
             {thingsListList.map((thingsList, i) => (
               <div className="col-md-4" key={'entity-${i}'}>
-                <div className="card border-success">
+                <div className="card border-warning">
                   <p>{thingsList.date}</p>
                   <h4 className="card-header">{thingsList.listTime}</h4>
                   <p className="text-success">{thingsList.description}</p>

@@ -13,10 +13,6 @@ export type IHomeProp = StateProps;
 export const Home = (props: IHomeProp) => {
   const { account } = props;
 
-function moreInfo() {
-  document.getElementById("infoButton").outerHTML = '<div class="alert alert-info">More Info Shows up HERE!</div>';
-}
-
   return (
     <div>
       <Row className="align-items-center">
@@ -24,17 +20,6 @@ function moreInfo() {
           <div className="jumbotron">
             <h1 className="display-3">One Thing at a Time App</h1>
             <p className="lead">Helps you get things done by focusing on one thing at a time!</p>
-            <hr className="my-4" />
-
-            <div>
-              <p className="lead">
-                  <a className="btn btn-info"
-                  onClick={()=>moreInfo()}
-                  role="button">Learn more</a>
-              </p>
-              <span id="infoButton" />
-            </div>
-
           </div>
         </Col>
 
@@ -67,7 +52,19 @@ function moreInfo() {
       </Row>
       <Row>
         <Col md="12">
+          <div className="card border-info">
+            <h3>About</h3>
 
+            <p>This is a project to create a task list that will only show one task at a time. It is created for people who feel overwhelmed by a long to-do list, which can lead to a lack of productivity. It will help them focus on one task at a time, so they can do the things they need to do.</p>
+
+            <h3>Features</h3>
+
+            <ul>
+              <li><strong>One Thing window:</strong> this shows the one thing that the user is doing right now</li>
+              <li><strong>All Lists window:</strong> this shows the full task list, and allow the user to edit the list.</li>
+              <li><strong>Different lists for different times of day:</strong> In the <i>All Lists</i> window, tasks can be sorted into lists for morning, afternoon, or evening.</li>
+            </ul>
+          </div>
         </Col>
       </Row>
     </div>
