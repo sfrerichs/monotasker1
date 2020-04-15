@@ -27,58 +27,48 @@ export const Thing = (props: IThingProps) => {
           &nbsp; Create new Thing
         </Link>
       </h2>
-
       <div className="table-responsive">
         {thingList && thingList.length > 0 ? (
-          <div className="container-fluid">
-            <div className="row">
-
-              <div className="col-sm-4">
-                <div className="card border-warning">
-                  <h4 className="card-header">Morning</h4>
-                  <table className="table table-hover">
-                    <tbody>
-                      {thingList.map((thing, i) => (
-                        <tr key={`entity-${i}`}>
-                          <td>
-                          <Button tag={Link} to={`${match.url}/${thing.id}`} color="link" size="sm">
-                             {thing.description}
-                          </Button>
-                          </td>
-                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-
-              <div className="col-sm-4">
-                <div className="card border-danger">
-                  <h4 className="card-header">Afternoon</h4>
-                  <table className="table table-hover">
-                    {thingList.map((thing, i) => (
-                      <tr key={`entity-${i}`}>
-                        <td>{thing.description}</td>
-                       </tr>
-                    ))}
-                  </table>
-                </div>
-              </div>
-
-              <div className="col-sm-4">
-                <div className="card border-success">
-                  <h4 className="card-header">Evening</h4>
-                  <table className="table table-hover">
-                    {thingList.map((thing, i) => (
-                      <tr key={`entity-${i}`}>
-                        <td>{thing.description}</td>
-                       </tr>
-                    ))}
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
+          <Table responsive>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Order</th>
+                <th>Description</th>
+                <th>Is Complete</th>
+                <th>Things List</th>
+                <th />
+              </tr>
+            </thead>
+            <tbody>
+              {thingList.map((thing, i) => (
+                <tr key={`entity-${i}`}>
+                  <td>
+                    <Button tag={Link} to={`${match.url}/${thing.id}`} color="link" size="sm">
+                      {thing.id}
+                    </Button>
+                  </td>
+                  <td>{thing.order}</td>
+                  <td>{thing.description}</td>
+                  <td>{thing.isComplete ? 'true' : 'false'}</td>
+                  <td>{thing.thingsList ? <Link to={`things-list/${thing.thingsList.id}`}>{thing.thingsList.id} {thing.thingsList.description}</Link> : ''}</td>
+                  <td className="text-right">
+                    <div className="btn-group flex-btn-group-container">
+                      <Button tag={Link} to={`${match.url}/${thing.id}`} color="info" size="sm">
+                        <FontAwesomeIcon icon="eye" /> <span className="d-none d-md-inline">View</span>
+                      </Button>
+                      <Button tag={Link} to={`${match.url}/${thing.id}/edit`} color="primary" size="sm">
+                        <FontAwesomeIcon icon="pencil-alt" /> <span className="d-none d-md-inline">Edit</span>
+                      </Button>
+                      <Button tag={Link} to={`${match.url}/${thing.id}/delete`} color="danger" size="sm">
+                        <FontAwesomeIcon icon="trash" /> <span className="d-none d-md-inline">Delete</span>
+                      </Button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
         ) : (
           !loading && <div className="alert alert-warning">No Things found</div>
         )}
