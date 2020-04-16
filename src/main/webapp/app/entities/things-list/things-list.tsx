@@ -38,7 +38,7 @@ export const ThingsList = (props: IThingsListProps) => {
                 <div className="card border-warning">
                   <p>{thingsList.date}</p>
                   <h4 className="card-header">{thingsList.listTime}</h4>
-                  <p className="text-success">{thingsList.description}</p>
+                  <p className="text-info">{thingsList.description}</p>
                   <ul>
                     {thingsList.things.map((thing, j) => (
                       <li key={`entity-${j}`}>
@@ -51,7 +51,7 @@ export const ThingsList = (props: IThingsListProps) => {
                     <Button hidden tag={Link} to={`${match.url}/${thingsList.id}`} color="link" size="sm">
                       View/edit list info
                     </Button>
-                    <Button tag={Link} to={'/one-thing-list'}>
+                    <Button tag={Link} to={'/one-thing-list'} color="link">
                       Start this list
                     </Button>
                 </div>
