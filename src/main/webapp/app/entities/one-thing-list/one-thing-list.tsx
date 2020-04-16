@@ -38,14 +38,13 @@ export const OneThingList = (props: IOneThingListProps) => {
           <button type="button" className="btn btn-light">Next</button>
          </Col>
       </Row>
+
       <Row>
         <Col md="10">
-          <button type="button" className="btn btn-primary"></button>
-          <button type="button" className="btn btn-light"></button>
-
-          <button type="button" className="btn btn-light"
-                  data-toggle="tooltip" data-placement="bottom"
-                  data-original-title="Button info"></button>
+          <div >
+            <button type="button" className="btn btn-primary"></button>
+            <button type="button" className="btn btn-light"></button>
+          </div>
         </Col>
       </Row>
     </div>
