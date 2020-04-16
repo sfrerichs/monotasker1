@@ -19,6 +19,10 @@ import thing, {
 import thingsList, {
   ThingsListState
 } from 'app/entities/things-list/things-list.reducer';
+// prettier-ignore
+import oneThingList, {
+  OneThingListState
+} from 'app/entities/one-thing-list/one-thing-list.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 export interface IRootState {
@@ -33,6 +37,7 @@ export interface IRootState {
   readonly settings: SettingsState;
   readonly thing: ThingState;
   readonly thingsList: ThingsListState;
+  readonly oneThingList: OneThingListState;
   /* jhipster-needle-add-reducer-type - JHipster will add reducer type here */
   readonly loadingBar: any;
 }
@@ -49,6 +54,7 @@ const rootReducer = combineReducers<IRootState>({
   settings,
   thing,
   thingsList,
+  oneThingList,
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
   loadingBar
 });
