@@ -43,7 +43,7 @@ public class ThingsList implements Serializable {
     private Set<Thing> things = new HashSet<>();
 
     @OneToOne(mappedBy = "thingsList")
-    private ThingsList thingsList;
+    private OneThingList oneThingList;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -118,12 +118,12 @@ public class ThingsList implements Serializable {
         this.things = things;
     }
 
-    public ThingsList getThingsList() {
-        return thingsList;
+    public OneThingList getOneThingList() {
+        return oneThingList;
     }
 
-    public void setThingsList(ThingsList thingsList) {
-        this.thingsList = thingsList;
+    public void setOneThingList(OneThingList oneThingList) {
+        this.oneThingList = oneThingList;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove

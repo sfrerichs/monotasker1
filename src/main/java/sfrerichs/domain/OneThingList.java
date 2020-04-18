@@ -26,7 +26,7 @@ public class OneThingList implements Serializable {
     @Column(name = "my_text")
     private String myText;
 
-    @OneToOne(mappedBy = "oneThingList")
+    @OneToOne
     @JsonIgnore
     private ThingsList thingsList;
 
