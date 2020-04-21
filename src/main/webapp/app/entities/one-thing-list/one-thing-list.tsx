@@ -28,7 +28,7 @@ export const OneThingList = (props: IOneThingListProps) => {
             &nbsp; Create new One Thing List
           </Link>
         </h2>
-        <div className="table-responsive table-info">
+        <div className="table-responsive table-light">
           {oneThingListList && oneThingListList.length > 0 ? (
             <Table responsive>
               <thead>
@@ -36,6 +36,7 @@ export const OneThingList = (props: IOneThingListProps) => {
                   <th>ID</th>
                   <th>My Text</th>
                   <th>Things List</th>
+                  <th />
                 </tr>
               </thead>
               <tbody>
@@ -43,7 +44,23 @@ export const OneThingList = (props: IOneThingListProps) => {
                   <tr key={'entity-&{i}'}>
                     <td>{oneThingList.id}</td>
                     <td>{oneThingList.myText}</td>
-                    <td>{oneThingList.thingsList}</td>
+                    <td>{oneThingList.thingsList
+                          ? oneThingList.thingsList.id
+                          : <b className="text-danger">No ThingsList Present</b> }
+                    </td>
+                    <td className="text-right">
+                      <div className="btn-group flex-btn-group-container">
+                        <Button tag={Link} to={`${match.url}/${oneThingList.id}`} color="info" size="sm">
+                          <FontAwesomeIcon icon="eye" /> <span className="d-none d-md-inline">View</span>
+                        </Button>
+                        <Button tag={Link} to={`${match.url}/${oneThingList.id}/edit`} color="primary" size="sm">
+                          <FontAwesomeIcon icon="pencil-alt" /> <span className="d-none d-md-inline">Edit</span>
+                        </Button>
+                        <Button tag={Link} to={`${match.url}/${oneThingList.id}/delete`} color="danger" size="sm">
+                          <FontAwesomeIcon icon="trash" /> <span className="d-none d-md-inline">Delete</span>
+                        </Button>
+                      </div>
+                    </td>
                   </tr>
                 ))}
               </tbody>
