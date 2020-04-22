@@ -78,13 +78,18 @@ export const ThingsListUpdate = (props: IThingsListUpdateProps) => {
               ) : null}
 
               <AvGroup>
+                <Label for="things-list-oneThingList">Auto-add to OneThingList</Label>
+                <AvInput id="things-list-oneThingList" name="oneThingList" />
+              </AvGroup>
+
+              <AvGroup>
                 <Label for="things-list-date">Date</Label>
-                <AvField type="date" name="date"/>
+                <AvField id="things-list-date" type="date" name="date"/>
 
                 <Label for="things-list-listTime">List Time</Label>
                 <AvInput
                   id="things-list-listTime"
-                  type=" "
+                  type="select"
                   className="form-control"
                   name="listTime"
                   value={(!isNew && thingsListEntity.listTime) || 'MORNING'}
