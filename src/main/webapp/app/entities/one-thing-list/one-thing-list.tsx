@@ -20,33 +20,96 @@ export const OneThingList = (props: IOneThingListProps) => {
   const { oneThingListList, match, loading } = props;
   return (
     <div>
-      <Row>
-        <Col sm="8">
-          <div className="jumbotron">
-            <h1 className="display-3">THE ONE THING</h1>
-          </div>
-        </Col>
-        <Col sm="4">
-          <div className="card border-warning mb-3">
-            <div className="card-header">Working on List:</div>
-            <div className="card-body">
-              <h4 className="card-title">ListTime</h4>
-              <p className="card-text">Date and Description</p>
-            </div>
-          </div>
-          <button type="button" className="btn btn-primary">Mark Complete</button>
-          <button type="button" className="btn btn-light">Next</button>
-         </Col>
-      </Row>
+      <div id="master-view">
+        <h2 id="one-thing-list-heading">
+          One Thing List
+          <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
+            <FontAwesomeIcon icon="plus" />
+            &nbsp; Create new One Thing List
+          </Link>
+        </h2>
+        <div className="table-responsive table-light">
+          {oneThingListList && oneThingListList.length > 0 ? (
+            <Table responsive>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>My Text</th>
+                  <th>Things List</th>
+                  <th />
+                </tr>
+              </thead>
+              <tbody>
+                {oneThingListList.map((oneThingList, i) => (
+                  <tr key={'entity-&{i}'}>
+                    <td>{oneThingList.id}</td>
+                    <td>{oneThingList.myText}</td>
+                    <td>{oneThingList.thingsList
+                          ? oneThingList.thingsList.id
+                          : <b className="text-danger">No ThingsList Present</b> }
+                    </td>
+                    <td className="text-right">
+                      <div className="btn-group flex-btn-group-container">
+                        <Button tag={Link} to={`${match.url}/${oneThingList.id}`} color="info" size="sm">
+                          <FontAwesomeIcon icon="eye" /> <span className="d-none d-md-inline">View</span>
+                        </Button>
+                        <Button tag={Link} to={`${match.url}/${oneThingList.id}/edit`} color="primary" size="sm">
+                          <FontAwesomeIcon icon="pencil-alt" /> <span className="d-none d-md-inline">Edit</span>
+                        </Button>
+                        <Button tag={Link} to={`${match.url}/${oneThingList.id}/delete`} color="danger" size="sm">
+                          <FontAwesomeIcon icon="trash" /> <span className="d-none d-md-inline">Delete</span>
+                        </Button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+          ) : (
+            !loading && <div className="alert alert-warning">No oneThingList found</div>
+          )}
+        </div>
+      </div>
 
-      <Row>
-        <Col md="10">
-          <div >
-            <button type="button" className="btn btn-primary"></button>
-            <button type="button" className="btn btn-light"></button>
+      <div id="my-stuff">
+        {oneThingListList && oneThingListList.length > 0 ? (
+          <div>
+            {oneThingListList.map((oneThingList, i) => (
+              <div key={`entity-${i}`}>
+                <span className="text-danger">TODO: this area needs to display info from selected thingsList</span>
+                <Row>
+                  <Col sm="8">
+                    <div className="jumbotron">
+                      <h1 className="display-3">THE ONE THING</h1>
+                    </div>
+                  </Col>
+                  <Col sm="4">
+                    <div className="card border-warning mb-3">
+                      <div className="card-header">Working on List:</div>
+                      <div className="card-body">
+                        <h4 className="card-title">List Time</h4>
+                        <p className="card-text">Date and Description</p>
+                      </div>
+                    </div>
+                    <button type="button" className="btn btn-primary">Mark Complete</button>
+                    <button type="button" className="btn btn-light">Next</button>
+                   </Col>
+                </Row>
+                <Row>
+                  <Col md="10">
+                    <div >
+                      <button type="button" className="btn btn-primary"></button>
+                      <button type="button" className="btn btn-light"></button>
+                    </div>
+                  </Col>
+                </Row>
+              </div>
+            ))}
           </div>
-        </Col>
-      </Row>
+        ) : (
+          !loading && <div className="alert alert-warning">No oneThingList found</div>
+        )}
+      </div>
     </div>
   );
 };
