@@ -76,11 +76,12 @@ export const ThingsListUpdate = (props: IThingsListUpdateProps) => {
                   <AvInput id="things-list-id" type="text" className="form-control" name="id" required readOnly />
                 </AvGroup>
               ) : null}
+
               <AvGroup>
-                <AvField type="date" name="date" label="Date"/>
-                <Label id="listTimeLabel" for="things-list-listTime">
-                  List Time
-                </Label>
+                <Label for="things-list-date">Date</Label>
+                <AvField type="date" name="date"/>
+
+                <Label for="things-list-listTime">List Time</Label>
                 <AvInput
                   id="things-list-listTime"
                   type=" "
@@ -92,7 +93,9 @@ export const ThingsListUpdate = (props: IThingsListUpdateProps) => {
                   <option value="AFTERNOON">AFTERNOON</option>
                   <option value="EVENING">EVENING</option>
                 </AvInput>
-                <AvField name="description" label="Description" />
+
+                <Label for="things-list-description">Description</Label>
+                <AvField id="things-list-description" name="description" />
               </AvGroup>
               <Button tag={Link} id="cancel-save" to="/things-list" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
