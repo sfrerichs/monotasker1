@@ -42,6 +42,9 @@ public class ThingsList implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Thing> things = new HashSet<>();
 
+    @OneToOne(mappedBy = "thingsList")
+    private OneThingList oneThingList;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -114,6 +117,15 @@ public class ThingsList implements Serializable {
     public void setThings(Set<Thing> things) {
         this.things = things;
     }
+
+    public OneThingList getOneThingList() {
+        return oneThingList;
+    }
+
+    public void setOneThingList(OneThingList oneThingList) {
+        this.oneThingList = oneThingList;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override

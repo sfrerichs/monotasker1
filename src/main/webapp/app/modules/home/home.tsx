@@ -29,7 +29,7 @@ export const Home = (props: IHomeProp) => {
               <h3 className="card-header bg-success">Welcome, {account.login}!</h3>
                 <div className='breadcrumb'>
                   <li className="breadcrumb-item"><a href='/things-list' className="text-light">All Lists</a></li>
-                  <li className="breadcrumb-item text-light"><a href='#' className="text-light">One Thing View</a></li>
+                  <li className="breadcrumb-item text-light"><a href='/one-thing-list' className="text-light">One Thing View</a></li>
                 </div>
 
             </div>
