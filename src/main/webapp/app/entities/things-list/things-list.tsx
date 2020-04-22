@@ -28,42 +28,59 @@ export const ThingsList = (props: IThingsListProps) => {
         </Link>
       </h2>
 
-      <div className="table-responsive">
-        {thingsListList && thingsListList.length > 0 ? (
-          <div className="container-fluid">
-            <div className="row">
+      <Row>
+        <div className="table-responsive">
+          {thingsListList && thingsListList.length > 0 ? (
+            <div className="container-fluid">
+              <div className="row">
 
-            {thingsListList.map((thingsList, i) => (
-              <div className="col-md-4" key={'entity-${i}'}>
-                <div className="card border-warning">
-                  <p>{thingsList.date}</p>
-                  <h4 className="card-header">{thingsList.listTime}</h4>
-                  <p className="text-info">{thingsList.description}</p>
-                  <ul>
-                    {thingsList.things.map((thing, j) => (
-                      <li key={`entity-${j}`}>
-                         <Button tag={Link} to={`thing/${thing.id}/edit`}>
-                         {thing.description}
-                         </Button>
-                      </li>
-                    ))}
-                  </ul>
-                    <Button hidden tag={Link} to={`${match.url}/${thingsList.id}`} color="link" size="sm">
-                      View/edit list info
-                    </Button>
-                    <Button tag={Link} to={'/one-thing-list/1/edit'} color="link">
-                      Start this list
-                    </Button>
+              {thingsListList.map((thingsList, i) => (
+                <div className="col-md-4" key={'entity-${i}'}>
+                  <div className="card border-warning">
+                    <p>{thingsList.date}</p>
+                    <h4 className="card-header">{thingsList.listTime}</h4>
+                    <p className="text-info">{thingsList.description}</p>
+                    <ul>
+                      {thingsList.things.map((thing, j) => (
+                        <li key={`entity-${j}`}>
+                           <Button tag={Link} to={`thing/${thing.id}/edit`}>
+                           {thing.description}
+                           </Button>
+                        </li>
+                      ))}
+                    </ul>
+                      <Button hidden tag={Link} to={`${match.url}/${thingsList.id}`} color="link" size="sm">
+                        View/edit list info
+                      </Button>
+                      <Button tag={Link} to={'/one-thing-list/1/edit'} color="link">
+                        Start this list
+                      </Button>
+                  </div>
                 </div>
+              ))}
               </div>
-            ))}
-
             </div>
-          </div>
-        ) : (
-          !loading && <div className="alert alert-warning">No Things Lists found</div>
-        )}
-      </div>
+          ) : (
+            !loading && <div className="alert alert-warning">No Things Lists found</div>
+          )}
+        </div>
+      </Row>
+
+      <Row>
+        <Col>
+          <Link to={`thing/new`}
+                className="btn btn-primary jh-create-entity"
+                id="jh-create-entity">
+            &nbsp; Create new Thing
+          </Link>
+
+          <Link to={`things-list/new`}
+                className="btn btn-primary jh-create-entity"
+                id="jh-create-entity">
+            &nbsp; Create new List
+          </Link>
+        </Col>
+      </Row>
     </div>
   );
 };
