@@ -52,7 +52,7 @@ export const ThingsList = (props: IThingsListProps) => {
                       <Button hidden tag={Link} to={`${match.url}/${thingsList.id}`} color="link" size="sm">
                         View/edit list info
                       </Button>
-                      <Button tag={Link} to={'/one-thing-list/1/edit'} color="link">
+                      <Button tag={Link} to={''} color="link">
                         Start this list
                       </Button>
                   </div>
@@ -74,7 +74,7 @@ export const ThingsList = (props: IThingsListProps) => {
             &nbsp; Create new Thing
           </Link>
 
-          <Link to={`things-list/new`}
+          <Link hidden to={`things-list/new`}
                 className="btn btn-primary jh-create-entity"
                 id="jh-create-entity">
             &nbsp; Create new List
