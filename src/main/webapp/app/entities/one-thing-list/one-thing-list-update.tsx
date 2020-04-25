@@ -69,27 +69,19 @@ export const OneThingListUpdate = (props: IOneThingListUpdateProps) => {
           {loading ? (
             <p>Loading...</p>
           ) : (
-            <AvForm model={isNew ? {} : oneThingListEntity} onSubmit={saveEntity} target="one-thing-list">
+            <AvForm model={isNew ? {} : oneThingListEntity} onSubmit={saveEntity}>
               {!isNew ? (
-                <AvGroup hidden>
+                <AvGroup>
                   <Label for="one-thing-list-id">ID</Label>
                   <AvInput id="one-thing-list-id" type="text" className="form-control" name="id" required readOnly />
                 </AvGroup>
               ) : null}
-              <AvGroup hidden>
-                <Label for="one-thing-list-myText">My Text</Label>
+              <AvGroup>
+                <Label id="myTextLabel" for="one-thing-list-myText">
+                  My Text
+                </Label>
                 <AvField id="one-thing-list-myText" type="text" name="myText" />
               </AvGroup>
-
-              <AvGroup className="btn-group btn-group-toggle" data-toggle="buttons">
-                {thingsLists.map(otherEntity => (
-                  <label key={otherEntity.id} className="btn btn-outline-warning">
-                    {otherEntity.description} {otherEntity.date} {otherEntity.listTime}
-                    <AvInput value={otherEntity.id} type="radio" name="options" id="option1" />
-                  </label>
-                ))}
-              </AvGroup>
-
               <Button tag={Link} id="cancel-save" to="/one-thing-list" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
