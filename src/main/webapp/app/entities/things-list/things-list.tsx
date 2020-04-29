@@ -52,7 +52,7 @@ export const ThingsList = (props: IThingsListProps) => {
                       <Button hidden tag={Link} to={`${match.url}/${thingsList.id}`} color="link" size="sm">
                         View/edit list info
                       </Button>
-                      <Button tag={Link} to={''} color="link">
+                      <Button hidden tag={Link} to={''} color="link">
                         Start this list
                       </Button>
                   </div>

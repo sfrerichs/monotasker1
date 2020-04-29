@@ -19,62 +19,82 @@ export const Thing = (props: IThingProps) => {
 
   const { thingList, match, loading } = props;
 
-  /*
-  function setWorkingList(listId) {
-    const checkId = thing.thingsList.id;
-    const workingList = [];
-    if (checkId === listId) {
-      workingList.add(checkId);
-    }
-    return workingList;
+  function SelectList() {
+    return (
+      <div className="form-group">
+        <label htmlFor="selectList">Choose a list:</label>
+        <select className="form-control" id="selectList">
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+          <option>5</option>
+        </select>
+        <button type="button" className="btn btn-warning">Start!</button>
+      </div>
+    );
   }
-  */
+
+  function OneThing() {
+    return (
+      <div className="jumbotron">
+        <h1 className="display-3">THE ONE THING</h1>
+      </div>
+    );
+  }
+
+  function InfoCard() {
+    return (
+      <div className="card border-warning mb-3">
+        <div className="card-header">Working on List:</div>
+        <div className="card-body">
+          <h4 className="card-title">List Time</h4>
+          <p className="card-text">Date and Description</p>
+        </div>
+      </div>
+    );
+  }
+
+  function CompleteButton() {
+    return (
+      <button type="button" className="btn btn-primary mr-3">Mark Complete</button>
+    );
+  }
+
+  function NextButton() {
+    return (
+      <button type="button" className="btn btn-light">Next</button>
+    );
+  }
 
   return (
     <div>
       <Row>
         <Col sm="4">
-          <div className="form-group">
-            <label htmlFor="selectList">Choose a list:</label>
-            <select className="form-control" id="selectList">
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
-            </select>
-            <button type="button" className="btn btn-warning">Start!</button>
-          </div>
+          <SelectList />
         </Col>
       </Row>
 
       <Row>
         <Col sm="8">
-          <div className="jumbotron">
-            <h1 className="display-3">THE ONE THING</h1>
-          </div>
+          <OneThing />
         </Col>
         <Col sm="4">
-          <div className="card border-warning mb-3">
-            <div className="card-header">Working on List:</div>
-            <div className="card-body">
-              <h4 className="card-title">List Time</h4>
-              <p className="card-text">Date and Description</p>
-            </div>
-          </div>
-          <button type="button" className="btn btn-primary mr-3">Mark Complete</button>
-          <button type="button" className="btn btn-light">Next</button>
-         </Col>
+          <InfoCard />
+          <CompleteButton />
+          <NextButton />
+        </Col>
       </Row>
 
-      <h2 hidden id="thing-heading">
+      <hr />
+      <h2 id="thing-heading">
         Things
         <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
           <FontAwesomeIcon icon="plus" />
           &nbsp; Create new Thing
         </Link>
       </h2>
-      <div hidden className="table-responsive">
+      <div className="table-responsive">
         {thingList && thingList.length > 0 ? (
           <Table responsive>
             <thead>
