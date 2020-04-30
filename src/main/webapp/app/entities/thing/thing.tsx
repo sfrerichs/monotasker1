@@ -86,7 +86,7 @@ export const Thing = (props: IThingProps) => {
 
   function NextButton() {
     return (
-      <button type="button" className="btn btn-light" onClick={()=> alert('button')}>Next</button>
+      <button type="button" className="btn btn-light mr-3" onClick={()=> alert('button')}>Next</button>
     );
   }
 
@@ -106,6 +106,11 @@ export const Thing = (props: IThingProps) => {
           <InfoCard />
           <CompleteButton />
           <NextButton />
+          <Link to={`/things-list`}
+                className="btn btn-outline-warning">
+                &nbsp;
+                All Lists View
+          </Link>
         </Col>
       </Row>
 
