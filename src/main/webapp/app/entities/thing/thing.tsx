@@ -19,20 +19,43 @@ export const Thing = (props: IThingProps) => {
 
   const { thingList, match, loading } = props;
 
-  function SelectList() {
-    return (
-      <div className="form-group">
-        <label htmlFor="selectList">Choose a list:</label>
-        <select className="form-control" id="selectList">
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-          <option>5</option>
-        </select>
-        <button type="button" className="btn btn-warning">Start!</button>
-      </div>
-    );
+  class WorkingList extends React.Component {
+    constructor(myProps) {
+      super(myProps);
+      this.state = {
+        workingListId: null
+      };
+      this.handleSelect = this.handleSelect.bind(this);
+      this.displayId = this.displayId.bind(this);
+    }
+
+    handleSelect(event) {
+      this.setState({
+        workingListId: event.target.value
+      });
+    }
+
+    displayId(event) {
+      alert('You have chosen ' + this.state.workingListId);
+      event.preventDefault();
+    }
+
+    render() {
+      return (
+        <div className="form-group">
+          <label htmlFor="selectList">Choose a list:</label>
+          <select className="form-control" id="selectList"
+                  value={this.state.value} onChange={this.handleSelect}>
+            <option />
+            <option value="162">Morning</option>
+            <option value="163">Afternoon</option>
+            <option value="164">Evening</option>
+          </select>
+          <button type="button" className="btn btn-warning"
+                  onClick={this.displayId}>Start!</button>
+        </div>
+      );
+    }
   }
 
   function OneThing() {
@@ -71,7 +94,7 @@ export const Thing = (props: IThingProps) => {
     <div>
       <Row>
         <Col sm="4">
-          <SelectList />
+          <WorkingList />
         </Col>
       </Row>
 
