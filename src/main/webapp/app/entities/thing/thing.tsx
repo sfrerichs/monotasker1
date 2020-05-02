@@ -63,7 +63,7 @@ export const Thing = (props: IThingProps) => {
 
   function NextButton() {
     return (
-      <button type="button" className="btn btn-light">Next</button>
+      <button type="button" className="btn btn-light mr-3">Next</button>
     );
   }
 
@@ -83,6 +83,7 @@ export const Thing = (props: IThingProps) => {
           <InfoCard />
           <CompleteButton />
           <NextButton />
+          <Link to={`/things-list`} className="btn btn-outline-warning">All Lists View</Link>
         </Col>
       </Row>
 
