@@ -19,14 +19,16 @@ export const Thing = (props: IThingProps) => {
 
   const { thingList, match, loading } = props;
 
+
   class WorkingList extends React.Component {
     constructor(myProps) {
       super(myProps);
       this.state = {
-        workingListId: null
+        workingListId: null,
+        workingList: []
       };
       this.handleSelect = this.handleSelect.bind(this);
-      this.displayId = this.displayId.bind(this);
+      this.setWorkingList = this.setWorkingList.bind(this);
     }
 
     handleSelect(event) {
@@ -35,80 +37,111 @@ export const Thing = (props: IThingProps) => {
       });
     }
 
-    displayId(event) {
-      alert('You have chosen ' + this.state.workingListId);
-      event.preventDefault();
+    // adds all things with workingListId to an array called workingList
+      // 1. loop thru things & add all to array
+        // 2. refine: if thingsList id == workingListId, add to workingList array
+    setWorkingList(event) {
+      thingList.map((thing) => (
+        // if (event.target.value == thing.thingsList.id) {
+          this.setState({
+            workingList: [ ...this.state.workingList, {thing}]
+          })
+        // }
+      ));
+      alert('You have chosen ' + this.state.workingListId + ': '
+      + JSON.stringify(this.state.workingList));
     }
 
     render() {
+      const workingList =  this.state.workingList;
+
       return (
-        <div className="form-group">
-          <label htmlFor="selectList">Choose a list:</label>
-          <select className="form-control" id="selectList"
-                  value={this.state.value} onChange={this.handleSelect}>
-            <option />
-            <option value="162">Morning</option>
-            <option value="163">Afternoon</option>
-            <option value="164">Evening</option>
-          </select>
-          <button type="button" className="btn btn-warning"
-                  onClick={this.displayId}>Start!</button>
+        <div>
+          <Row>
+            <Col sm="8">
+              <OneThing workingList={workingList}/>
+            </Col>
+
+            <Col sm="4">
+              <div className="card border-warning mb-3">
+                <div className="card-header">Things List</div>
+                <div className="card-body">
+                  <div className="form-group">
+                    <label htmlFor="selectList">Time of Day:</label>
+                    <select className="form-control" id="selectList"
+                            value={this.state.value} onChange={this.handleSelect}>
+                      <option selected value="">Choose a List</option>
+                      <option value="162">Morning</option>
+                      <option value="163">Afternoon</option>
+                      <option value="164">Evening</option>
+                    </select>
+                    <button type="button" className="btn btn-warning"
+                            value={this.state.value}
+                            onClick={this.setWorkingList}>Start!</button>
+                  </div>
+                </div>
+              </div>
+              <CompleteButton />
+              <NextButton />
+            </Col>
+          </Row>
+
+          <Row>
+            <ListVisualGroup workingList={workingList} />
+          </Row>
         </div>
       );
     }
   }
 
-  function OneThing() {
+
+  function OneThing(myProps) {
     return (
       <div className="jumbotron">
+        { myProps.workingList.length > 0 ?
         <h1 className="display-3">THE ONE THING</h1>
-      </div>
-    );
-  }
-
-  function InfoCard() {
-    return (
-      <div className="card border-warning mb-3">
-        <div className="card-header">Working on List:</div>
-        <div className="card-body">
-          <h4 className="card-title">List Time</h4>
-          <p className="card-text">Date and Description</p>
-        </div>
+        : <h1 className="display-3">Choose a Things List</h1> }
       </div>
     );
   }
 
   function CompleteButton() {
     return (
-      <button type="button" className="btn btn-primary mr-3">Mark Complete</button>
+      <button type="button"
+      className="btn btn-primary mr-3"
+      >Mark Complete</button>
     );
   }
 
   function NextButton() {
     return (
-      <button type="button" className="btn btn-light mr-3">Next</button>
+      <Button type="button"
+      className="btn btn-light mr-3"
+      >Next</Button>
     );
+  }
+
+  // makes a button/badge for each item in list passed into myProps from workingList
+  function ListVisual(myProps) {
+    return (
+      <span className="badge badge-pill badge-light">{myProps.value}</span>
+    );
+  }
+  function ListVisualGroup(myProps) {
+    const workingList = myProps.workingList;
+    const listItems = workingList.map((item)=>
+      <ListVisual key={item.id}
+                  value={item.description} />
+    );
+    return ( workingList ?
+      <div>{listItems}</div>
+      : null );
   }
 
   return (
     <div>
-      <Row>
-        <Col sm="4">
-          <WorkingList />
-        </Col>
-      </Row>
-
-      <Row>
-        <Col sm="8">
-          <OneThing />
-        </Col>
-        <Col sm="4">
-          <InfoCard />
-          <CompleteButton />
-          <NextButton />
-          <Link to={`/things-list`} className="btn btn-outline-warning">All Lists View</Link>
-        </Col>
-      </Row>
+      <WorkingList />
+      <Link to={`/things-list`} className="btn btn-outline-warning mt-3">All Lists View</Link>
 
       <hr />
       <h2 id="thing-heading">
