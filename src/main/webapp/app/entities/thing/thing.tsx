@@ -39,7 +39,6 @@ export const Thing = (props: IThingProps) => {
     }
 
     // adds all things with workingListId to an array called workingList
-        // 2. refine: if thingsList id == workingListId, add to workingList array
     setWorkingList() {
       const workingListId = this.state.workingListId;
       function checkListId(thing) {
@@ -49,7 +48,6 @@ export const Thing = (props: IThingProps) => {
       this.setState({
         workingList: [ ...this.state.workingList, ...chosenItems]
       });
-      alert('You have chosen ' + this.state.workingListId);
     }
 
     resetWorkingList() {
