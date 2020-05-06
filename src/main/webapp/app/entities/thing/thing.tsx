@@ -39,19 +39,16 @@ export const Thing = (props: IThingProps) => {
     }
 
     // adds all things with workingListId to an array called workingList
-      // 1. loop thru things & add all to array
         // 2. refine: if thingsList id == workingListId, add to workingList array
     setWorkingList() {
-      function checkListId() {
-        return thingList;
+      const workingListId = this.state.workingListId;
+      function checkListId(thing) {
+        return thing.thingsList.id.toString() === workingListId;
       }
-
       const chosenItems = thingList.filter(checkListId);
-
       this.setState({
         workingList: [ ...this.state.workingList, ...chosenItems]
       });
-
       alert('You have chosen ' + this.state.workingListId);
     }
 
@@ -101,7 +98,12 @@ export const Thing = (props: IThingProps) => {
           </Row>
 
           <Row>
-            <ListVisualGroup workingList={workingList} />
+            <Col sm="8">
+              <ListVisualGroup workingList={workingList} />
+            </Col>
+            <Col sm="4">
+              <Link to={`/things-list`} className="btn btn-outline-warning mt-3">All Lists View</Link>
+            </Col>
           </Row>
         </div>
       );
@@ -155,7 +157,6 @@ export const Thing = (props: IThingProps) => {
   return (
     <div>
       <WorkingList />
-      <Link to={`/things-list`} className="btn btn-outline-warning mt-3">All Lists View</Link>
 
       <hr />
       <h2 id="thing-heading">
