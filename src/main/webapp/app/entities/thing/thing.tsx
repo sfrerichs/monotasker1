@@ -29,6 +29,7 @@ export const Thing = (props: IThingProps) => {
       };
       this.handleSelect = this.handleSelect.bind(this);
       this.setWorkingList = this.setWorkingList.bind(this);
+      this.resetWorkingList = this.resetWorkingList.bind(this);
     }
 
     handleSelect(event) {
@@ -40,16 +41,24 @@ export const Thing = (props: IThingProps) => {
     // adds all things with workingListId to an array called workingList
       // 1. loop thru things & add all to array
         // 2. refine: if thingsList id == workingListId, add to workingList array
-    setWorkingList(event) {
-      thingList.map((thing) => (
-        // if (event.target.value == thing.thingsList.id) {
-          this.setState({
-            workingList: [ ...this.state.workingList, {thing}]
-          })
-        // }
-      ));
-      alert('You have chosen ' + this.state.workingListId + ': '
-      + JSON.stringify(this.state.workingList));
+    setWorkingList() {
+      function checkListId() {
+        return thingList;
+      }
+
+      const chosenItems = thingList.filter(checkListId);
+
+      this.setState({
+        workingList: [ ...this.state.workingList, ...chosenItems]
+      });
+
+      alert('You have chosen ' + this.state.workingListId);
+    }
+
+    resetWorkingList() {
+      this.setState({
+        workingList: []
+      });
     }
 
     render() {
@@ -75,9 +84,14 @@ export const Thing = (props: IThingProps) => {
                       <option value="163">Afternoon</option>
                       <option value="164">Evening</option>
                     </select>
+                    {workingList.length ===0 ?
                     <button type="button" className="btn btn-warning"
                             value={this.state.value}
                             onClick={this.setWorkingList}>Start!</button>
+                     : <button type="button" className="btn btn-danger"
+                            value=""
+                            onClick={this.resetWorkingList}>Reset</button>
+                      }
                   </div>
                 </div>
               </div>
@@ -99,8 +113,8 @@ export const Thing = (props: IThingProps) => {
     return (
       <div className="jumbotron">
         { myProps.workingList.length > 0 ?
-        <h1 className="display-3">THE ONE THING</h1>
-        : <h1 className="display-3">Choose a Things List</h1> }
+        <p>{JSON.stringify(myProps.workingList)}</p>
+        : <h1 className="display-3">Choose a List</h1> }
       </div>
     );
   }
@@ -124,14 +138,14 @@ export const Thing = (props: IThingProps) => {
   // makes a button/badge for each item in list passed into myProps from workingList
   function ListVisual(myProps) {
     return (
-      <span className="badge badge-pill badge-light">{myProps.value}</span>
+      <span className="badge badge-pill badge-light mr-3">{myProps.value}</span>
     );
   }
   function ListVisualGroup(myProps) {
     const workingList = myProps.workingList;
     const listItems = workingList.map((item)=>
       <ListVisual key={item.id}
-                  value={item.description} />
+                  value={item.id} />
     );
     return ( workingList ?
       <div>{listItems}</div>
