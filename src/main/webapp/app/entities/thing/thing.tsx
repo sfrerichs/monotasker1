@@ -168,7 +168,11 @@ export const Thing = (props: IThingProps) => {
   // makes a button/badge for each item in list passed into myProps from workingList
   function ListVisual(myProps) {
     return (
+
       <span className="badge badge-pill badge-light mr-3">{myProps.value}</span>
+
+ 
+
     );
   }
   function ListVisualGroup(myProps) {
@@ -185,9 +189,12 @@ export const Thing = (props: IThingProps) => {
 
   return (
     <div>
+
       <WorkingList />
+      
 
       <hr />
+
       <h2 id="thing-heading">
         Things
         <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">

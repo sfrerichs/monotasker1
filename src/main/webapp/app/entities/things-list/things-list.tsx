@@ -69,6 +69,7 @@ export const ThingsList = (props: IThingsListProps) => {
       <Row>
         <Col>
           <Link to={`thing/new`}
+
                 className="btn btn-primary jh-create-entity"
                 id="jh-create-entity mr-3">
             &nbsp; Create new Thing
@@ -76,6 +77,8 @@ export const ThingsList = (props: IThingsListProps) => {
           <Link to={`/thing`} className="btn btn-outline-warning mr-3">
             One Thing View
           </Link>
+
+                
           <Link hidden to={`things-list/new`}
                 className="btn btn-primary jh-create-entity"
                 id="jh-create-entity">
