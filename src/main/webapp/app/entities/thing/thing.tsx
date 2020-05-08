@@ -25,11 +25,13 @@ export const Thing = (props: IThingProps) => {
       super(myProps);
       this.state = {
         workingListId: null,
-        workingList: []
+        workingList: [],
+        workingListIndex: 0
       };
       this.handleSelect = this.handleSelect.bind(this);
       this.setWorkingList = this.setWorkingList.bind(this);
       this.resetWorkingList = this.resetWorkingList.bind(this);
+      this.nextButtonClick = this.nextButtonClick.bind(this);
     }
 
     handleSelect(event) {
@@ -56,14 +58,36 @@ export const Thing = (props: IThingProps) => {
       });
     }
 
+    nextButtonClick() {
+      const workingListIndex = this.state.workingListIndex;
+      const workingListLength = this.state.workingList.length;
+      let nextIndex = workingListIndex;
+
+      if (nextIndex === workingListLength - 1) {
+        nextIndex = 0;
+      } else {
+        nextIndex = workingListIndex + 1;
+      }
+
+      this.setState({
+        workingListIndex: nextIndex
+      });
+    }
+
     render() {
       const workingList =  this.state.workingList;
+      const workingListIndex = this.state.workingListIndex;
+      const oneThing = workingList[workingListIndex];
 
       return (
         <div>
           <Row>
             <Col sm="8">
-              <OneThing workingList={workingList}/>
+              <div className="jumbotron">
+                { workingList.length > 0 ?
+                <h1 className="display=3">{oneThing.description}</h1>
+                : <h1 className="display-3">Choose a List</h1> }
+              </div>
             </Col>
 
             <Col sm="4">
@@ -91,7 +115,10 @@ export const Thing = (props: IThingProps) => {
                 </div>
               </div>
               <CompleteButton />
-              <NextButton />
+              <Button type="button"
+                      className="btn btn-light mr-3"
+                      onClick={this.nextButtonClick}>
+                 Next</Button>
             </Col>
           </Row>
 
@@ -108,30 +135,33 @@ export const Thing = (props: IThingProps) => {
     }
   }
 
+/*
+  class OneThing extends React.Component {
+    constructor(myProps) {
+      super(myProps);
+    }
 
-  function OneThing(myProps) {
-    return (
-      <div className="jumbotron">
-        { myProps.workingList.length > 0 ?
-        <p>{JSON.stringify(myProps.workingList)}</p>
-        : <h1 className="display-3">Choose a List</h1> }
-      </div>
-    );
+    render() {
+      // const workingList = this.myProps.workingList;
+      // const workingListIndex = this.myProps.workingListIndex;
+      const oneThing = workingList[workingListIndex];
+
+      return (
+        <div className="jumbotron">
+          { myProps.workingList.length > 0 ?
+          <h1 className="display=3">{oneThing.description}</h1>
+          : <h1 className="display-3">Choose a List</h1> }
+        </div>
+      );
+    }
   }
+  */
 
   function CompleteButton() {
     return (
       <button type="button"
       className="btn btn-primary mr-3"
       >Mark Complete</button>
-    );
-  }
-
-  function NextButton() {
-    return (
-      <Button type="button"
-      className="btn btn-light mr-3"
-      >Next</Button>
     );
   }
 
@@ -151,6 +181,7 @@ export const Thing = (props: IThingProps) => {
       <div>{listItems}</div>
       : null );
   }
+
 
   return (
     <div>
