@@ -19,14 +19,19 @@ export const Thing = (props: IThingProps) => {
 
   const { thingList, match, loading } = props;
 
-  class SelectList extends React.Component {
-    constructor() {
-      super();
-      this.state ={
-        workingListId: null
+
+  class WorkingList extends React.Component {
+    constructor(myProps) {
+      super(myProps);
+      this.state = {
+        workingListId: null,
+        workingList: [],
+        workingListIndex: 0
       };
       this.handleSelect = this.handleSelect.bind(this);
-      this.displayId = this.displayId.bind(this);
+      this.setWorkingList = this.setWorkingList.bind(this);
+      this.resetWorkingList = this.resetWorkingList.bind(this);
+      this.nextButtonClick = this.nextButtonClick.bind(this);
     }
 
     handleSelect(event) {
@@ -35,84 +40,158 @@ export const Thing = (props: IThingProps) => {
       });
     }
 
-    displayId(event) {
-      alert('You have chosen ' + this.state.workingListId);
-      event.preventDefault();
+    // adds all things with workingListId to an array called workingList
+    setWorkingList() {
+      const workingListId = this.state.workingListId;
+      function checkListId(thing) {
+        return thing.thingsList.id.toString() === workingListId;
+      }
+      const chosenItems = thingList.filter(checkListId);
+      this.setState({
+        workingList: [ ...this.state.workingList, ...chosenItems]
+      });
+    }
+
+    resetWorkingList() {
+      this.setState({
+        workingList: []
+      });
+    }
+
+    nextButtonClick() {
+      const workingListIndex = this.state.workingListIndex;
+      const workingListLength = this.state.workingList.length;
+      let nextIndex = workingListIndex;
+
+      if (nextIndex === workingListLength - 1) {
+        nextIndex = 0;
+      } else {
+        nextIndex = workingListIndex + 1;
+      }
+
+      this.setState({
+        workingListIndex: nextIndex
+      });
     }
 
     render() {
+      const workingList =  this.state.workingList;
+      const workingListIndex = this.state.workingListIndex;
+      const oneThing = workingList[workingListIndex];
+
       return (
-        <div className="form-group">
-          <label htmlFor="selectList">Choose a list:</label>
-          <select className="form-control md-3" id="selectList"
-                  value={this.state.value} onChange={this.handleSelect}>
-            <option />
-            <option value="162">Morning</option>
-            <option value="163">Afternoon</option>
-            <option value="164">Evening</option>
-          </select>
-          <button type="button" className="btn btn-warning"
-                  onClick={this.displayId}>Start!</button>
+        <div>
+          <Row>
+            <Col sm="8">
+              <div className="jumbotron">
+                { workingList.length > 0 ?
+                <h1 className="display=3">{oneThing.description}</h1>
+                : <h1 className="display-3">Choose a List</h1> }
+              </div>
+            </Col>
+
+            <Col sm="4">
+              <div className="card border-warning mb-3">
+                <div className="card-header">Things List</div>
+                <div className="card-body">
+                  <div className="form-group">
+                    <label htmlFor="selectList">Time of Day:</label>
+                    <select className="form-control" id="selectList"
+                            value={this.state.value} onChange={this.handleSelect}>
+                      <option selected value="">Choose a List</option>
+                      <option value="162">Morning</option>
+                      <option value="163">Afternoon</option>
+                      <option value="164">Evening</option>
+                    </select>
+                    {workingList.length ===0 ?
+                    <button type="button" className="btn btn-warning"
+                            value={this.state.value}
+                            onClick={this.setWorkingList}>Start!</button>
+                     : <button type="button" className="btn btn-danger"
+                            value=""
+                            onClick={this.resetWorkingList}>Reset</button>
+                      }
+                  </div>
+                </div>
+              </div>
+              <CompleteButton />
+              <Button type="button"
+                      className="btn btn-light mr-3"
+                      onClick={this.nextButtonClick}>
+                 Next</Button>
+            </Col>
+          </Row>
+
+          <Row>
+            <Col sm="8">
+              <ListVisualGroup workingList={workingList} />
+            </Col>
+            <Col sm="4">
+              <Link to={`/things-list`} className="btn btn-outline-warning mt-3">All Lists View</Link>
+            </Col>
+          </Row>
         </div>
       );
     }
   }
 
-  function OneThing() {
-    return (
-      <div className="jumbotron">
-        <h1 className="display-3">THE ONE THING</h1>
-      </div>
-    );
-  }
+/*
+  class OneThing extends React.Component {
+    constructor(myProps) {
+      super(myProps);
+    }
 
-  function InfoCard() {
-    return (
-      <div className="card border-warning mb-3">
-        <div className="card-header">Working on List:</div>
-        <div className="card-body">
-          <h4 className="card-title">List Time</h4>
-          <p className="card-text">Date and Description</p>
+    render() {
+      // const workingList = this.myProps.workingList;
+      // const workingListIndex = this.myProps.workingListIndex;
+      const oneThing = workingList[workingListIndex];
+
+      return (
+        <div className="jumbotron">
+          { myProps.workingList.length > 0 ?
+          <h1 className="display=3">{oneThing.description}</h1>
+          : <h1 className="display-3">Choose a List</h1> }
         </div>
-      </div>
-    );
+      );
+    }
   }
+  */
 
   function CompleteButton() {
     return (
-      <button type="button" className="btn btn-primary mr-3">Mark Complete</button>
+      <button type="button"
+      className="btn btn-primary mr-3"
+      >Mark Complete</button>
     );
   }
 
-  function NextButton() {
+  // makes a button/badge for each item in list passed into myProps from workingList
+  function ListVisual(myProps) {
     return (
-      <button type="button" className="btn btn-light mr-3" onClick={()=> alert('button')}>Next</button>
+
+      <span className="badge badge-pill badge-light mr-3">{myProps.value}</span>
+
+ 
+
     );
   }
+  function ListVisualGroup(myProps) {
+    const workingList = myProps.workingList;
+    const listItems = workingList.map((item)=>
+      <ListVisual key={item.id}
+                  value={item.id} />
+    );
+    return ( workingList ?
+      <div>{listItems}</div>
+      : null );
+  }
+
 
   return (
     <div>
-      <Row>
-        <Col sm="4">
-          <SelectList />
-        </Col>
-      </Row>
 
-      <Row>
-        <Col sm="8">
-          <OneThing />
-        </Col>
-        <Col sm="4">
-          <InfoCard />
-          <CompleteButton />
-          <NextButton />
-          <Link to={`/things-list`}
-                className="btn btn-outline-warning">
-                &nbsp;
-                All Lists View
-          </Link>
-        </Col>
-      </Row>
+      <WorkingList />
+      
 
       <hr />
 
