@@ -147,6 +147,11 @@ export const Thing = (props: IThingProps) => {
 
   // makes a button/badge for each item in list passed into myProps from workingList
   function ListVisual(myProps) {
+    if (myProps.status) {
+      return (
+      <span className="badge badge-pill badge-primary mr-3">{myProps.value}</span>
+      );
+    }
     return (
       <span className="badge badge-pill badge-light mr-3">{myProps.value}</span>
     );
@@ -155,7 +160,8 @@ export const Thing = (props: IThingProps) => {
     const workingList = myProps.workingList;
     const listItems = workingList.map((item)=>
       <ListVisual key={item.id}
-                  value={item.id} />
+                  value={item.id}
+                  status={item.isComplete}/>
     );
     return ( workingList ?
       <div>{listItems}</div>
