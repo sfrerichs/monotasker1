@@ -91,7 +91,10 @@ export const Thing = (props: IThingProps) => {
               <div className="jumbotron">
                 <p className="lead">Your One Thing to Work on:</p>
                 { workingList.length > 0 ?
-                <h1 className="display=3">{oneThing.description}</h1>
+                <div>
+                  <h1 className="display=3">{oneThing.description}</h1>
+                  <p>ID: {oneThing.id}</p>
+                </div>
                 : <h3 className="text-warning">Choose a List</h3> }
               </div>
               <ListVisualGroup workingList={workingList} />
