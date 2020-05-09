@@ -19,11 +19,6 @@ export const Thing = (props: IThingProps) => {
 
   const { thingList, match, loading } = props;
 
-
-  function useWorkingList(workingListId) {
-    const [workingList, setWorkingList] = useState(null);
-  }
-
   class WorkingList extends React.Component {
     constructor(myProps) {
       super(myProps);
@@ -131,12 +126,13 @@ export const Thing = (props: IThingProps) => {
               </div>
               {workingList.length > 0 ?
                 <div>
-                  <Button className="btn btn-primary mr-3"
-                        tag={Link} to={`/thing/${oneThing.id}/edit`}
-                        >Mark Complete</Button>
+                  <Button type="button"
+                        className="btn btn-outline-primary mr-3"
+                        tag={Link} to={`/thing/${oneThing.id}/edit`}>
+                        Mark Complete</Button>
 
                   <Button type="button"
-                          className="btn btn-light mr-3"
+                          className="btn btn-outline-light mr-3"
                           onClick={this.nextButtonClick}>
                      Next</Button>
                 </div>
@@ -152,7 +148,7 @@ export const Thing = (props: IThingProps) => {
   // makes a button/badge for each item in list passed into myProps from workingList
   function ListVisual(myProps) {
     return (
-      <span className="badge badge-pill badge-light mr-3">.</span>
+      <span className="badge badge-pill badge-light mr-3">{myProps.value}</span>
     );
   }
   function ListVisualGroup(myProps) {
