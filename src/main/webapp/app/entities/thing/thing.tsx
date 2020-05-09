@@ -91,7 +91,10 @@ export const Thing = (props: IThingProps) => {
               <div className="jumbotron">
                 <p className="lead">Your One Thing to Work on:</p>
                 { workingList.length > 0 ?
-                <h1 className="display=3">{oneThing.description}</h1>
+                <div>
+                  <h1 className="display=3">{oneThing.description}</h1>
+                  <p>ID: {oneThing.id}</p>
+                </div>
                 : <h3 className="text-warning">Choose a List</h3> }
               </div>
               <ListVisualGroup workingList={workingList} />
@@ -147,6 +150,11 @@ export const Thing = (props: IThingProps) => {
 
   // makes a button/badge for each item in list passed into myProps from workingList
   function ListVisual(myProps) {
+    if (myProps.status) {
+      return (
+      <span className="badge badge-pill badge-primary mr-3">{myProps.value}</span>
+      );
+    }
     return (
       <span className="badge badge-pill badge-light mr-3">{myProps.value}</span>
     );
@@ -155,7 +163,8 @@ export const Thing = (props: IThingProps) => {
     const workingList = myProps.workingList;
     const listItems = workingList.map((item)=>
       <ListVisual key={item.id}
-                  value={item.id} />
+                  value={item.id}
+                  status={item.isComplete}/>
     );
     return ( workingList ?
       <div>{listItems}</div>
