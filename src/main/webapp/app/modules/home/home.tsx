@@ -61,7 +61,7 @@ export const Home = (props: IHomeProp) => {
 
             <ul>
               <li><strong>One Thing window:</strong> this shows the one thing that the user is doing right now</li>
-              <li><strong>All Lists window:</strong> this shows the full task list, and allow the user to edit the list.</li>
+              <li><strong>All Lists window:</strong> this shows the full task list, and allow the user to edit the things on the list.</li>
               <li><strong>Different lists for different times of day:</strong> In the <i>All Lists</i> window, tasks can be sorted into lists for morning, afternoon, or evening.</li>
             </ul>
           </div>

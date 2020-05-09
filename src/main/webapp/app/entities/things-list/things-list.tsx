@@ -78,7 +78,7 @@ export const ThingsList = (props: IThingsListProps) => {
             One Thing View
           </Link>
 
-                
+
           <Link hidden to={`things-list/new`}
                 className="btn btn-primary jh-create-entity"
                 id="jh-create-entity">

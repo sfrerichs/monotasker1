@@ -20,6 +20,10 @@ export const Thing = (props: IThingProps) => {
   const { thingList, match, loading } = props;
 
 
+  function useWorkingList(workingListId) {
+    const [workingList, setWorkingList] = useState(null);
+  }
+
   class WorkingList extends React.Component {
     constructor(myProps) {
       super(myProps);
@@ -74,6 +78,12 @@ export const Thing = (props: IThingProps) => {
       });
     }
 
+    completeButtonClick() {
+      const oneThing = workingList[workingListIndex];
+
+
+    }
+
     render() {
       const workingList =  this.state.workingList;
       const workingListIndex = this.state.workingListIndex;
@@ -84,95 +94,66 @@ export const Thing = (props: IThingProps) => {
           <Row>
             <Col sm="8">
               <div className="jumbotron">
+                <p className="lead">Your One Thing to Work on:</p>
                 { workingList.length > 0 ?
                 <h1 className="display=3">{oneThing.description}</h1>
-                : <h1 className="display-3">Choose a List</h1> }
+                : <h3 className="text-warning">Choose a List</h3> }
               </div>
-            </Col>
-
-            <Col sm="4">
-              <div className="card border-warning mb-3">
-                <div className="card-header">Things List</div>
-                <div className="card-body">
-                  <div className="form-group">
-                    <label htmlFor="selectList">Time of Day:</label>
-                    <select className="form-control" id="selectList"
-                            value={this.state.value} onChange={this.handleSelect}>
-                      <option selected value="">Choose a List</option>
-                      <option value="162">Morning</option>
-                      <option value="163">Afternoon</option>
-                      <option value="164">Evening</option>
-                    </select>
-                    {workingList.length ===0 ?
-                    <button type="button" className="btn btn-warning"
-                            value={this.state.value}
-                            onClick={this.setWorkingList}>Start!</button>
-                     : <button type="button" className="btn btn-danger"
-                            value=""
-                            onClick={this.resetWorkingList}>Reset</button>
-                      }
-                  </div>
-                </div>
-              </div>
-              <CompleteButton />
-              <Button type="button"
-                      className="btn btn-light mr-3"
-                      onClick={this.nextButtonClick}>
-                 Next</Button>
-            </Col>
-          </Row>
-
-          <Row>
-            <Col sm="8">
               <ListVisualGroup workingList={workingList} />
             </Col>
+
             <Col sm="4">
-              <Link to={`/things-list`} className="btn btn-outline-warning mt-3">All Lists View</Link>
+              <div className="card border-warning mb-3 mt-3">
+                <p className="card-title">Your List:</p>
+                <div className="card-body">
+                  {workingList.length === 0 ?
+                    <div className="form-group">
+                      <label htmlFor="selectList">Time of Day:</label>
+                      <select className="form-control" id="selectList"
+                              value={this.state.value} onChange={this.handleSelect}>
+                        <option default value=""></option>
+                        <option value="162">Morning</option>
+                        <option value="163">Afternoon</option>
+                        <option value="164">Evening</option>
+                      </select>
+                      <button type="button" className="btn btn-warning"
+                              value={this.state.value}
+                              onClick={this.setWorkingList}>Start!</button>
+                    </div>
+                    : <div>
+                        <div className="card-header">{oneThing.thingsList.listTime}</div>
+                        <button type="button" className="btn btn-outline-danger mt-3"
+                        value=""
+                        onClick={this.resetWorkingList}>Reset</button>
+                      </div>
+                  }
+                </div>
+              </div>
+              {workingList.length > 0 ?
+                <div>
+                  <button type="button"
+                        className="btn btn-primary mr-3"
+                        onClick={() => alert('complete')}
+                        >Mark Complete</button>
+
+                  <Button type="button"
+                          className="btn btn-light mr-3"
+                          onClick={this.nextButtonClick}>
+                     Next</Button>
+                </div>
+                : null}
+              <Link to={`/things-list`} className="btn btn-outline-warning">All Lists View</Link>
             </Col>
           </Row>
         </div>
       );
     }
-  }
-
-/*
-  class OneThing extends React.Component {
-    constructor(myProps) {
-      super(myProps);
-    }
-
-    render() {
-      // const workingList = this.myProps.workingList;
-      // const workingListIndex = this.myProps.workingListIndex;
-      const oneThing = workingList[workingListIndex];
-
-      return (
-        <div className="jumbotron">
-          { myProps.workingList.length > 0 ?
-          <h1 className="display=3">{oneThing.description}</h1>
-          : <h1 className="display-3">Choose a List</h1> }
-        </div>
-      );
-    }
-  }
-  */
-
-  function CompleteButton() {
-    return (
-      <button type="button"
-      className="btn btn-primary mr-3"
-      >Mark Complete</button>
-    );
   }
 
   // makes a button/badge for each item in list passed into myProps from workingList
   function ListVisual(myProps) {
     return (
-
-      <span className="badge badge-pill badge-light mr-3">{myProps.value}</span>
-
- 
-
+      <span className="badge badge-pill badge-light mr-3">.</span>
     );
   }
   function ListVisualGroup(myProps) {
@@ -189,20 +170,17 @@ export const Thing = (props: IThingProps) => {
 
   return (
     <div>
-
       <WorkingList />
-      
 
-      <hr />
-
-      <h2 id="thing-heading">
+      <hr hidden />
+      <h2 hidden id="thing-heading">
         Things
         <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
           <FontAwesomeIcon icon="plus" />
           &nbsp; Create new Thing
         </Link>
       </h2>
-      <div className="table-responsive">
+      <div hidden className="table-responsive">
         {thingList && thingList.length > 0 ? (
           <Table responsive>
             <thead>
