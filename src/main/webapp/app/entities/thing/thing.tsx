@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Col, Row, Table } from 'reactstrap';
-import { ICrudGetAllAction } from 'react-jhipster';
+import { ICrudGetAllAction, ICrudPutAction } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
-import { getEntities } from './thing.reducer';
+import { getEntities, updateEntity } from './thing.reducer';
 import { IThing } from 'app/shared/model/thing.model';
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 
@@ -131,10 +131,9 @@ export const Thing = (props: IThingProps) => {
               </div>
               {workingList.length > 0 ?
                 <div>
-                  <button type="button"
-                        className="btn btn-primary mr-3"
-                        onClick={() => alert('complete')}
-                        >Mark Complete</button>
+                  <Button className="btn btn-primary mr-3"
+                        tag={Link} to={`/thing/${oneThing.id}/edit`}
+                        >Mark Complete</Button>
 
                   <Button type="button"
                           className="btn btn-light mr-3"

@@ -78,11 +78,6 @@ export const ThingsListUpdate = (props: IThingsListUpdateProps) => {
               ) : null}
 
               <AvGroup>
-                <Label for="things-list-oneThingList">Auto-add to OneThingList</Label>
-                <AvInput id="things-list-oneThingList" name="oneThingList" />
-              </AvGroup>
-
-              <AvGroup>
                 <Label for="things-list-date">Date</Label>
                 <AvField id="things-list-date" type="date" name="date"/>
 
